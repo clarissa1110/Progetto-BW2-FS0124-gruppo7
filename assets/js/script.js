@@ -5,7 +5,7 @@ let audio = document.getElementById("audio"); // Take the audio element
 let time = document.querySelector(".time"); // Take the audio track
 let btnPlay = document.querySelector(".play"); // Take the play button
 let btnPause = document.querySelector(".pause"); // Take the pause button
-let btnPrev = document.querySelector(". prev"); // Take the switch button of the previous track
+let btnPrev = document.querySelector(".prev"); // Take the switch button of the previous track
 let btnNext = document.querySelector(".next");
 
 const url =
@@ -21,6 +21,10 @@ const options = {
 window.addEventListener("load", init);
 
 function playerPrint(track) {
+    let playlist = [
+        'https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3',
+        'https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3'
+    ];
     console.log(track.contributors[0].name);
   playerInfo.innerHTML = `<div class='leftPlayer d-flex'>
         <img src="${track.artist.picture_small}" alt="${track.title}">
@@ -29,10 +33,29 @@ function playerPrint(track) {
             <h5>${track.contributors[0].name}</h5>
         </div>
         </div>`;
+           // Change the src attribute value
+   audio.src = playlist[0];
+    // Assign a song time of zero
+    audio.currentTime = 0;
+    // Play the song
+  
+    const progress=document.querySelector('.progress-bar');
+    btnPlay.addEventListener("click", function() {
+        audio.play(); // Start the song
+      setInterval(()=>{
+        let audioTime = Math.round(audio.currentTime);
+     
+        let audioLength = Math.round(audio.duration)
+       
+        progress.style.width = (audioTime * 100) / audioLength + '%';
+    },1);
+    });
+
 
 }
 async function playerGet(id) {
-  /* funzione call con id*/
+  /* funzione call con id passare anche array di canzoni per il successivo*/
+ 
   try {
     const response = await fetch(url + id, options);
     const result = await response.json();
@@ -44,7 +67,7 @@ async function playerGet(id) {
   }
 }
 function init() {
-//    playerGet('1109731');
+   playerGet('1109731');
 }
 
 /*{

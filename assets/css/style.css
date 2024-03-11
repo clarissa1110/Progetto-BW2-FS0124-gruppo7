@@ -21,3 +21,9 @@
 .progress{
     width: 500px;
 }
+ 
+.time {
+    width: 0;
+    height: 3px;
+    background-color: #474747
+}
