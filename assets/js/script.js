@@ -22,7 +22,7 @@ window.addEventListener("load", init);
 
 function playerPrint(track) {
     let playlist = [
-        'https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3',
+        track.preview,
         'https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3'
     ];
     console.log(track.contributors[0].name);
