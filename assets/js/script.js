@@ -1,18 +1,21 @@
-const url='https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=d2fe32319f9a4a7b32ac024136ee642b&track=believe&format=json';
-/* d2fe32319f9a4a7b32ac024136ee642b */
-window.addEventListener('load',init)
+const url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem';
 const options = {
-	method: 'GET',
-};
-async function init() {
-    try {
-      let lod = await fetch(url, {
-     
-      });
-      let response = await lod.json();
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-     
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': 'bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975',
+        'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
     }
-  }
+};
+
+
+async function getMusic() {
+    try {
+    const response = await fetch(url, options);
+    const result = await response.text();
+    console.log(result);
+} catch (error) {
+    console.error(error);
+}
+}
+
+getMusic();
