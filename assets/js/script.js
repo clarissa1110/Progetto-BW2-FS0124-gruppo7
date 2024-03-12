@@ -8,6 +8,7 @@ let btnPause = document.querySelector(".pause"); // Take the pause button
 let btnPrev = document.querySelector(".prev"); // Take the switch button of the previous track
 let btnNext = document.querySelector(".next");
 
+
 const url =
   "https://deezerdevs-deezer.p.rapidapi.com/track/"; /* url per la traccia specifica */
 
@@ -33,6 +34,7 @@ function playerPrint(track) {
             <h5>${track.contributors[0].name}</h5>
         </div>
         </div>`;
+        
            // Change the src attribute value
    audio.src = playlist[0];
     // Assign a song time of zero
@@ -40,15 +42,18 @@ function playerPrint(track) {
     // Play the song
   
     const progress=document.querySelector('.progress-bar');
+    let timeBar = document.getElementById("timeBar");
     btnPlay.addEventListener("click", function() {
         audio.play(); // Start the song
       setInterval(()=>{
         let audioTime = Math.round(audio.currentTime);
      
         let audioLength = Math.round(audio.duration)
-       
         progress.style.width = (audioTime * 100) / audioLength + '%';
-    },1);
+        console.log(audioTime);
+        timeBar.innerText=audioTime;
+    },1000);
+     
     });
 
 
@@ -67,7 +72,7 @@ async function playerGet(id) {
   }
 }
 function init() {
-   playerGet('1109731');
+//    playerGet('1109731');
 }
 
 /*{
