@@ -39,3 +39,9 @@ body,html{
 .topMainBar{
     width: 99%;
 }
+.playerActive{
+    display: inline-block;
+}
+.playerDisactive{
+    display: none;
+}

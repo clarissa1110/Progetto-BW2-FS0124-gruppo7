@@ -5,7 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BW_Spotify</title>
-    <link rel="shortcut icon" type="image/x-icon" href="https://m.media-amazon.com/images/I/51rttY7a+9L.png" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://m.media-amazon.com/images/I/51rttY7a+9L.png"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -156,8 +160,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="container-fluid bg-dark mt-3 rounded-3 p-0 w-75" >
+        <main class="container-fluid bg-dark mt-3 rounded-3 p-0 w-75">
           <div class="row mb-3 p-2 topMainBar">
             <div class="col-12 d-flex justify-content-between">
               <div class="d-inline-flex gap-1 col-4">
@@ -225,34 +228,25 @@
               </div>
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
 
     <div id="player">
       <div id="playerInfo">
-        <div class="leftPlayer d-flex">
-          <img
-            src="https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/56x56-000000-80-0-0.jpg"
-            alt="$"
-          />
-          <div>
-            <h4>lose your self</h4>
-            <h5>Eminem</h5>
-          </div>
-        </div>
+        <div class="leftPlayer d-flex"></div>
       </div>
       <div id="playerPlay" class="d-flex flex-column text-center">
         <audio id="audio"></audio>
         <div id="controls">
+          <button class="prev">
+            <i class="bi bi-arrow-left-square fs-5"></i>
+          </button>
           <button class="play">
             <i class="bi bi-play-circle-fill fs-5"></i>
           </button>
-          <button class="pause">
+          <button class="pause playerDisactive">
             <i class="bi bi-pause-circle-fill fs-5"></i>
-          </button>
-          <button class="prev">
-            <i class="bi bi-arrow-left-square fs-5"></i>
           </button>
           <button class="next">
             <i class="bi bi-arrow-right-square fs-5"></i>
@@ -280,6 +274,7 @@
         <h2>object volum...</h2>
       </div>
     </div>
+
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

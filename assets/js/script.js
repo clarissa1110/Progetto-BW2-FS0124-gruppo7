@@ -38,14 +38,20 @@ function playerPrint(track) {
            // Change the src attribute value
    audio.src = playlist[0];
     // Assign a song time of zero
-    audio.currentTime = 0;
+    audio.currentTime =0;
     // Play the song
   
     const progress=document.querySelector('.progress-bar');
     let timeBar = document.getElementById("timeBar");
+    let interval;
     btnPlay.addEventListener("click", function() {
+        btnPlay.classList.add('playerDisactive');
+        btnPlay.classList.remove('playerActive');
+        btnPause.classList.add('playerActive');
+        btnPause.classList.remove('playerDisactive');
+        audio.volume=0.2;
         audio.play(); // Start the song
-      setInterval(()=>{
+      interval=setInterval(()=>{
         let audioTime = Math.round(audio.currentTime);
      
         let audioLength = Math.round(audio.duration)
@@ -54,6 +60,14 @@ function playerPrint(track) {
         timeBar.innerText=audioTime;
     },1000);
      
+    });
+    btnPause.addEventListener("click", function() {
+        btnPause.classList.add('playerDisactive');
+        btnPause.classList.remove('playerActive');
+        btnPlay.classList.add('playerActive');
+        btnPlay.classList.remove('playerDisactive');
+        clearInterval(interval);
+            audio.pause();
     });
 
 
@@ -72,7 +86,7 @@ async function playerGet(id) {
   }
 }
 function init() {
-//    playerGet('1109731');
+   playerGet('1109731');
 }
 
 /*{
