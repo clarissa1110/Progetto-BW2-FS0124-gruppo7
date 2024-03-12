@@ -1,10 +1,15 @@
 body,html{
+    height: 100vh;
     padding: 0;
     margin: 0;
     background-color: black;
     font-family: "Signika", sans-serif;
-  font-optical-sizing: auto;
+    font-optical-sizing: auto;
     font-weight: 400;
+}
+
+#pagina {
+    height: 100%;
 }
 
 #player{
@@ -38,10 +43,65 @@ body,html{
 }
 .topMainBar{
     width: 99%;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
 }
+
+
 .playerActive{
     display: inline-block;
 }
 .playerDisactive{
     display: none;
+}
+
+#libreria {
+    height: 69vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+#mainSection {
+    height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+#mainContent {
+    background: linear-gradient(180deg, rgba(35,35,35,1) 0%, rgba(18,18,18,1) 20%);
+}
+
+.topMainBar {
+    background-color: transparent;
+}
+
+.topMainBarScorrevole {
+    background-color: rgba(18,18,18,1);
+}
+
+#imagineTopMain {
+    width: 97%;
+}
+
+#mainTopSection{
+    width: 95%;
+}
+
+.card{
+    width: 19%;
+}
+
+.card-img-top {
+    border-radius: 50%;
+}
+
+.homeAlbum:hover {
+    cursor: pointer;
+    background-color: lightgray !important;
+}
+
+.homeArtist:hover {
+    cursor:pointer;
+    background-color: gray !important;
 }
