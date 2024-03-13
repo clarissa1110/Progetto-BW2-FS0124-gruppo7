@@ -27,12 +27,12 @@
           <div class="container">
             <div class="row">
               <p class="d-inline-flex gap-1 col-12 mt-2">
-                <a class="btn btn-dark fw-bold fs-3" href="#" role="button">
+                <a class="btn btn-dark fw-bold fs-3 d-flex align-items-center justify-content-center" href="#" role="button">
                   <ion-icon name="home-outline" class="pe-2"></ion-icon>
                   HOME</a>
               </p>
               <p class="d-inline-flex gap-1 col-12 mb-2">
-                <button class="btn btn-dark fw-bold fs-3" type="button" data-bs-toggle="collapse"
+                <button class="btn btn-dark fw-bold fs-3 d-flex align-items-center justify-content-center" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
                   <ion-icon name="search-outline" class="pe-2"></ion-icon>
                   CERCA
@@ -367,18 +367,18 @@
         <div class="row mb-3 p-3 topMainBar">
           <div class="col-12 d-flex justify-content-between">
             <div class="d-inline-flex gap-1 col-4">
-              <button type="button" class="btn btn-dark rounded-5 fs-3">
+              <button type="button" class="btn btn-dark rounded-5 fs-3 d-flex align-items-center justify-content-center">
                 <ion-icon name="chevron-back-outline"></ion-icon>
               </button>
-              <button type="button" class="btn btn-dark rounded-5 fs-3">
+              <button type="button" class="btn btn-dark rounded-5 fs-3 d-flex align-items-center justify-content-center">
                 <ion-icon name="chevron-forward-outline"></ion-icon>
               </button>
             </div>
             <div class="d-inline-flex gap-1 col-5 justify-content-end">
-              <button type="button" class="btn btn-dark rounded-5 fs-3">
+              <button type="button" class="btn btn-dark rounded-5 fs-3 d-flex align-items-center justify-content-center">
                 <ion-icon name="notifications-outline"></ion-icon>
               </button>
-              <button type="button" class="btn btn-dark rounded-5 fs-3">
+              <button type="button" class="btn btn-dark rounded-5 fs-3 d-flex align-items-center justify-content-center">
                 <ion-icon name="people-outline"></ion-icon>
               </button>
               <a class="nav-link dropdown-toggle text-secondary d-flex justify-content-center align-content-center p-2"
@@ -453,7 +453,7 @@
             </div>
           </div>
           <div class="row mb-3 p-3" id="mainAlbumSection">
-            <h2 class="col-12 text-white mb-4">ALBUM</h2>
+            <h2 class="col-12 text-white mb-4 ps-3">ALBUM</h2>
 
             <div class="col-12 container-fluid">
               <div class="row d-flex justify-content-evenly mb-4">
@@ -524,10 +524,10 @@
 
           </div>
           <div class="row mb-3 p-3" id="mainArtistSection">
-            <h2 class="col-12 text-white">ARTISTI</h2>
+            <h2 class="col-12 text-white mb-4 ps-3">ARTISTI</h2>
             <div class="container-fluid">
               <div class="row d-flex justify-content-evenly">
-                <div class="card bg-transparent homeArtist">
+                <div class="card bg-transparent homeArtist py-5">
                   <img src="assets/img/image-11.jpg" class="card-img-top w-75 align-self-center">
                   <div class="card-body"> 
                     <h4 class="card-title text-white">Card title</h4>
@@ -535,7 +535,7 @@
                     
                   </div>
                 </div>
-                <div class="card bg-transparent homeArtist">
+                <div class="card bg-transparent homeArtist py-5">
                   <img src="assets/img/image-11.jpg" class="card-img-top w-75 align-self-center">
                   <div class="card-body"> 
                     <h4 class="card-title text-white">Card title</h4>
@@ -543,7 +543,7 @@
                     
                   </div>
                 </div>
-                <div class="card bg-transparent homeArtist">
+                <div class="card bg-transparent homeArtist py-5">
                   <img src="assets/img/image-11.jpg" class="card-img-top w-75 align-self-center">
                   <div class="card-body"> 
                     <h4 class="card-title text-white">Card title</h4>
@@ -551,7 +551,7 @@
                     
                   </div>
                 </div>
-                <div class="card bg-transparent homeArtist">
+                <div class="card bg-transparent homeArtist py-5">
                   <img src="assets/img/image-11.jpg" class="card-img-top w-75 align-self-center">
                   <div class="card-body"> 
                     <h4 class="card-title text-white">Card title</h4>
@@ -559,7 +559,7 @@
                     
                   </div>
                 </div>
-                <div class="card bg-transparent homeArtist">
+                <div class="card bg-transparent homeArtist py-5">
                   <img src="assets/img/image-11.jpg" class="card-img-top w-75 align-self-center">
                   <div class="card-body"> 
                     <h4 class="card-title text-white">Card title</h4>
@@ -572,13 +572,13 @@
             </div>
           </div>
           <div class="row mb-3 p-3" id="mainBranoSection">
-            <h2 class="col-12 text-white">BRANI</h2>
+            <h2 class="col-12 text-white ps-3">BRANI</h2>
+
           </div>
         </div>
         </div>
         
 
-      </main>
       </main>
 
       <div id="player" class="playerDisactive">
@@ -588,17 +588,23 @@
         <div id="playerPlay" class="d-flex flex-column text-center">
           <audio id="audio"></audio>
           <div id="controls">
-            <button class="prev">
-              <i class="bi bi-arrow-left-square fs-5"></i>
+            <button class="shuffle bg-transparent text-white border-0">
+              <ion-icon name="shuffle"></ion-icon>
             </button>
-            <button class="play">
+            <button class="prev bg-transparent text-white border-0">
+              <ion-icon name="play-skip-back"></ion-icon>
+            </button>
+            <button class="play bg-transparent text-white border-0">
               <i class="bi bi-play-circle-fill fs-5"></i>
             </button>
-            <button class="pause playerDisactive">
+            <button class="pause bg-transparent text-white border-0 playerDisactive">
               <i class="bi bi-pause-circle-fill fs-5"></i>
             </button>
-            <button class="next">
-              <i class="bi bi-arrow-right-square fs-5"></i>
+            <button class="next bg-transparent text-white border-0">
+              <ion-icon name="play-skip-forward"></ion-icon>
+            </button>
+            <button class="repeat bg-transparent text-white border-0">
+              <ion-icon name="repeat"></ion-icon>
             </button>
           </div>
           <div>

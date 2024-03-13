@@ -9,9 +9,7 @@ let btnPrev = document.querySelector(".prev"); // Take the switch button of the 
 let btnNext = document.querySelector(".next");
 
 const url ="https://deezerdevs-deezer.p.rapidapi.com/"; /* url per la traccia specifica */
-let playlist = [
-    // 'https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3',
-];
+let playlist = [];
 const options = {
   /* chiave gianluca */ method: "GET",
   headers: {
@@ -19,7 +17,27 @@ const options = {
     "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
   },
 };
-
+class playerHiden{
+    visibile(result){
+        playerContent.classList.remove('playerDisactive');
+        playerContent.classList.add('player');
+        puschTrack(result);
+    }
+    btnVisibile(){
+        btnPlay.classList.remove('playerActive');
+        btnPause.classList.remove('playerDisactive');
+        btnPlay.classList.add('playerDisactive');
+        btnPause.classList.add('playerActive');
+    }
+    
+    btnInvisibile(){
+        btnPause.classList.remove('playerActive');
+        btnPlay.classList.remove('playerDisactive');
+        btnPause.classList.add('playerDisactive');
+        btnPlay.classList.add('playerActive');
+    }   
+}
+let visibility=new playerHiden();
 playerDestra=()=>{
     const range = document.querySelector(".volume input[type=range]");
 
@@ -83,6 +101,9 @@ playerSinistra=(track)=>{
               <h4>${track.title}</h4>
               <h5>${track.contributors[0].name}</h5>
           </div>
+          <button class="heart bg-transparent text-white border-0 ms-4">
+            <ion-icon name="heart-outline"></ion-icon>
+          </button>
           </div>`;
 }
 puschTrack=(canzone)=>{
@@ -99,10 +120,7 @@ startSong=(i)=>{
     }
     const progress=document.querySelector('.progress-bar');
     let timeBar = document.getElementById("timeBar");
-    btnPlay.classList.remove('playerActive');
-    btnPause.classList.remove('playerDisactive');
-    btnPlay.classList.add('playerDisactive');
-    btnPause.classList.add('playerActive');
+    visibility.btnVisibile();
    
     switchPlaylist(i);
     timeBar.innerText=Math.round(audio.currentTime);
@@ -126,18 +144,12 @@ playerCenter=()=>{
           startSong(i);
            
           btnPlay.addEventListener("click", function(e) {
-              btnPlay.classList.remove('playerActive');
-              btnPause.classList.remove('playerDisactive');
-              btnPlay.classList.add('playerDisactive');
-              btnPause.classList.add('playerActive');
+              visibility.btnVisibile();
               audio.play();
-          });
-          btnPause.addEventListener("click", function(e) {
-              btnPause.classList.remove('playerActive');
-              btnPlay.classList.remove('playerDisactive');
-              btnPause.classList.add('playerDisactive');
-              btnPlay.classList.add('playerActive');
-              clearInterval(interval);
+            });
+            btnPause.addEventListener("click", function(e) {
+                
+                visibility.btnInvisibile();
                   audio.pause();
           });
 }
@@ -164,7 +176,7 @@ async function playerGet(id) {
 }
 
 function init() {
-   playerGet('1357589612');
+// playerGet('1357589612');
 // searchTrack();
 }
 window.addEventListener("load", init);
@@ -237,8 +249,6 @@ async function searchArtist(searchTerm) {
         }
     }
 }
-
-
 
 // let track={
 //     "id": 1109731,
