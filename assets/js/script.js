@@ -251,7 +251,7 @@ async function searchArtist(searchTerm) {
 window.addEventListener("load", init);
 function init(e) {
     e.preventDefault(); 
-    // genera();
+    genera('album');
 
     }
 
@@ -270,7 +270,7 @@ function init(e) {
           };
       
           try {
-            let endpoint = url + this.urlString;
+            console.log(url + this.urlString);
             const response = await fetch(url + this.urlString, options);
             const date = await response.json();
             this.data=date;
@@ -281,22 +281,37 @@ function init(e) {
         
       }   
       async function getMainAlbum(endpoint) {
-        let getMainAlbumObj = new Ceraca(endpoint);
+        let getMainAlbumObj = new Ceraca('album/'+endpoint);
         await getMainAlbumObj.featchFunction();
         popolaMainAlbum(getMainAlbumObj.data);
-
       }
-      async function getMainHomeAlbum(endpoint) {
-        let getMainAlbumHome = new Ceraca(endpoint);
-        await getMainAlbumHome.featchFunction();
-        popolaHomeAlbum(getMainAlbumHome.data);
+    //   async function getHomeAlbum(endpoint) {
+    //     let getMainAlbumHome = new Ceraca(endpoint);
+    //     await getMainAlbumHome.featchFunction();
+    //     popolaHomeAlbum(getMainAlbumHome.data);
+    //   }
+    //   async function getHomeAlbum2(endpoint) {
+    //     let getMainAlbumHome = new Ceraca(endpoint);
+    //     await getMainAlbumHome.featchFunction();
+    //     popolaHomeAlbum2(getMainAlbumHome.data);
+    //   }
+    //   async function getHomeArtists(endpoint) {
+    //     let getMainAlbumHome = new Ceraca(endpoint);
+    //     await getMainAlbumHome.featchFunction();
+    //     popolaHomeAlbum(getMainAlbumHome.data);
+    //   }
+    //   async function getHomeTracks(endpoint) {
+    //     let getMainAlbumHome = new Ceraca(endpoint);
+    //     await getMainAlbumHome.featchFunction();
+    //     popolaHomeAlbum(getMainAlbumHome.data);
+    //   }
 
-      }
       let contatoreGenera=0;
       const genera = async (tipo) => {
      
-        let random = `${tipo}/${Math.floor(Math.random() * 1000000)}`;
-        let endpoint = random;
+        let random = Math.floor(Math.random() * 1000000);
+        let endpoint = `${tipo}/${random}`;
+        console.log(endpoint);
         const options = {
             method: "GET",
             headers: {
@@ -309,27 +324,40 @@ function init(e) {
         // console.log('Fetch di prova: ', data);
         if (data.error) {
         //   console.log('Fetch vuota');
-          return genera();
+          return genera(tipo);
         } else {
         //   console.log('Fetch riuscita');
-        //   console.log(data);
+        //    console.log(data);
         
           if (contatoreGenera<1) {
-            getMainAlbum(endpoint);
+            getMainAlbum(random);
             contatoreGenera++;
-             return genera();            
+             return genera(tipo);            
+          }else  if (contatoreGenera<4) {
+            // getHomeAlbum(random);
+            popolaHomeAlbum(data)
+            contatoreGenera++;
+             return genera(tipo);            
           }else  if (contatoreGenera<7) {
-            getMainHomeAlbum(endpoint);
-            contatoreGenera++;
-             return genera();            
-          }else  if (contatoreGenera<10) {
+            // getHomeAlbum2(random);
             popolaHomeAlbum2(data);
             contatoreGenera++;
-             return genera();            
-          }else  if (contatoreGenera<13) {
+             return genera(tipo);            
+          }else  if (contatoreGenera<11) {
+            // getHomeArtists('artist');
             popolaHomeArtists(data);
             contatoreGenera++;
-             return genera();            
+             return genera(tipo);            
+          }else  if (contatoreGenera<15) {
+            // getHomeArtists('artist');
+            popolaHomeArtists2(data);
+            contatoreGenera++;
+             return genera(tipo);            
+          }else  if (contatoreGenera<20) {
+            // getHomeTracks('track');
+            popolaHomeTracks(data);
+            contatoreGenera++;
+             return genera(tipo);            
           }
         }
       }
@@ -344,7 +372,7 @@ mainTopSection.innerHTML = `
 <div class="col-9 container-fluid">
   <div class="row h-100 d-flex align-items-around">
     <div class="col-12 h-75 align-content-stretch" id="contenitoreTestoTopSection">
-      <p class="text-white fs-4 my-2" id="tipoPlaylist">${data.type.toUpperCase()}</p>
+      <p class="text-white fs-4 my-2" id="tipoPlaylist">${data.type}</p>
       <h1 class="m-0 col-12 text-start text-white display-1 fw-bold my-3" id="nomePlaylist">${data.title}
       </h1>
       <h2 class="col-12 text-start text-white m-0 my-2" id="descrizionePlaylist">Data di uscita: 
@@ -379,7 +407,7 @@ mainTopSection.innerHTML = `
 }
 
  function popolaHomeAlbum(data) {
-    console.log('zxczx');
+    console.log(data.title);
     const homeAlbumContainer = document.getElementById('homeAlbumContainer');
     homeAlbumContainer.innerHTML += ` 
     <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum">
@@ -394,6 +422,7 @@ mainTopSection.innerHTML = `
                       </div>
     `}
     function popolaHomeAlbum2(data) {
+        console.log(data);
     const homeAlbumContainer2 = document.getElementById('homeAlbumContainer2');
     homeAlbumContainer2.innerHTML += ` 
     <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum" >
@@ -406,7 +435,7 @@ mainTopSection.innerHTML = `
       </div>
     </div>
   </div>
-    `
+//     `
    
 }
 
@@ -414,7 +443,7 @@ mainTopSection.innerHTML = `
 
 function popolaHomeArtists(data) {
     const homeArtistsContainer = document.getElementById('homeArtistsContainer');
-    homeArtistsContainer.innerHTML = `
+    homeArtistsContainer.innerHTML += `
     <div class="card bg-transparent homeArtist py-5">
                         <img src="${data.cover}" class="card-img-top w-75 align-self-center">
                         <div class="card-body">
@@ -425,12 +454,26 @@ function popolaHomeArtists(data) {
                       </div>
     `
 }
+function popolaHomeArtists2(data) {
+    
+    const homeArtistsContainer2 = document.getElementById('homeArtistsContainer2');
+    homeArtistsContainer2.innerHTML += `
+    <div class="card bg-transparent homeArtist py-5">
+    <img src="${data.cover}" class="card-img-top w-75 align-self-center">
+    <div class="card-body">
+      <h4 class="card-title text-white">Card title</h4>
+      <p class="card-text text-white-50 fs-5">Artista</p>
+
+    </div>
+  </div>
+    `
+}
 
 
 
 function popolaHomeTracks(data) {
     const homeTracksContainer = document.getElementById('homeTracksContainer');
-    homeTracksContainer.innerHTML = `
+    homeTracksContainer.innerHTML += `
     <div class="col-4 container-fluid rounded-2 braniHome mb-4">
                     <div class="row">
                       <div class="col-3 p-0 d-flex align-items-center">
