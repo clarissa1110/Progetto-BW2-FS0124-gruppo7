@@ -353,7 +353,7 @@ function init(e) {
             popolaHomeArtists2(data);
             contatoreGenera++;
              return genera(tipo);            
-          }else  if (contatoreGenera<20) {
+          }else  if (contatoreGenera<21) {
             // getHomeTracks('track');
             popolaHomeTracks(data);
             contatoreGenera++;
