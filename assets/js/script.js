@@ -8,15 +8,18 @@ let btnPause = document.querySelector(".pause"); // Take the pause button
 let btnPrev = document.querySelector(".prev"); // Take the switch button of the previous track
 let btnNext = document.querySelector(".next");
 
-const url ="https://deezerdevs-deezer.p.rapidapi.com/"; /* url per la traccia specifica */
-let playlist = [];
+const url ="https://corsproxy.io/?https://deezerdevs-deezer.p.rapidapi.com/";
+
 const options = {
-  /* chiave gianluca */ method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "dbc55fa0b3msh11db0998867bdf0p127d0ejsn427d844c1974",
-    "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-  },
-};
+    method: "GET",
+     headers: {
+       "X-RapidAPI-Key": "dbc55fa0b3msh11db0998867bdf0p127d0ejsn427d844c1974",
+       "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+     },
+   };
+
+let playlist = [];
+
 class playerHiden{
     visibile(result){
         playerContent.classList.remove('playerDisactive');
@@ -175,11 +178,6 @@ async function playerGet(id) {
   }
 }
 
-function init() {
-// playerGet('1357589612');
-// searchTrack();
-}
-window.addEventListener("load", init);
 
 const artist = [
     {
@@ -249,6 +247,183 @@ async function searchArtist(searchTerm) {
         }
     }
 }
+
+window.addEventListener("load", init);
+function init(e) {
+    e.preventDefault(); 
+    genera(1);
+    setTimeout(()=> {
+      genera(2)  
+    }, 5000) ;
+    // genera(3);
+    // getHomeAlbums();
+    // getHomeArtists();
+    // getHomeTracks();
+    }
+
+    class Ceraca {
+        constructor(_urlstring) {
+          this.urlString = _urlstring;
+        }
+        async featchFunction() {
+          const options = {
+            method: "GET",
+            headers: {
+              "X-RapidAPI-Key": "2e50c00f75mshfd267fefaec0641p1ad213jsn245f0da85d04",
+              "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+            },
+          };
+      
+          try {
+            let endpoint = url + this.urlString;
+            const response = await fetch(url + this.urlString, options);
+            const data = await response.json();
+          } catch (error) {
+            console.error("Error during fetching data:", error);
+          }
+        }
+      }   
+   
+      const genera = async (id) => {
+        let random = `album/${Math.floor(Math.random() * 1000000)}`;
+        let endpoint = random;
+        const options = {
+            method: "GET",
+            headers: {
+              "X-RapidAPI-Key": "2e50c00f75mshfd267fefaec0641p1ad213jsn245f0da85d04",
+              "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+            },
+          };
+        const response = await fetch(url + endpoint, options);
+        const data = await response.json();
+        // console.log('Fetch di prova: ', data);
+        if (data.error) {
+          console.log('Fetch vuota');
+          return genera();
+        } else {
+          console.log('Fetch riuscita');
+          console.log(data);
+          if (id===1) {
+            popolaMainAlbum(data);
+          }
+          if (id===2) {
+            popolaHomeAlbum(data);
+          }
+        }
+      }
+     
+
+function popolaMainAlbum(data) {
+const mainTopSection = document.getElementById('mainTopSection');
+mainTopSection.innerHTML = `
+<div class="col-3 p-4" id="contenitoreImmagineTopSection">
+  <img src="${data.cover_big}" class="rounded" id="imagineTopMain" />
+</div>
+<div class="col-9 container-fluid">
+  <div class="row h-100 d-flex align-items-around">
+    <div class="col-12 h-75 align-content-stretch" id="contenitoreTestoTopSection">
+      <p class="text-white fs-4 my-2" id="tipoPlaylist">${data.type.toUpperCase()}</p>
+      <h1 class="m-0 col-12 text-start text-white display-1 fw-bold my-3" id="nomePlaylist">${data.title}
+      </h1>
+      <h2 class="col-12 text-start text-white m-0 my-2" id="descrizionePlaylist">Data di uscita: 
+        ${data.release_date}
+        </h2>
+    </div>
+    <div class="col-12 h-25 align-content-center">
+      <button class="btn btn-success rounded-5 fs-3 px-5 py-3 text-black fw-bold"
+        id="btnPlayTopSection" onclick='changeToAlbum("68346981")'>Play</button>
+      <button class="btn btn-outline-light rounded-5 fs-3 px-5 py-3 fw-bold mx-3" id="btnSegui" onclick='changeToArtist("416239")'>Segui</button>
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+            class="bi bi-three-dots text-white" viewBox="0 0 16 16">
+            <path
+              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+          </svg>
+        </button>
+        <ul class="dropdown-menu bg-black">
+          <li><a class="dropdown-item bg-black text-white fs-4" href="#">Aggiungi alla tua libreria</a>
+          </li>
+          <li><a class="dropdown-item bg-black text-white fs-4" href="#">Aggiungi in coda</a></li>
+          <li><a class="dropdown-item bg-black text-white fs-4" href="#">Segnala</a></li>
+          <li><a class="dropdown-item bg-black text-white fs-4" href="#">Scarica</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>`
+
+   
+}
+
+
+
+
+
+
+
+function popolaHomeAlbum(data) {
+    const homeAlbumContainer = document.getElementById('homeAlbumContainer');
+    homeAlbumContainer.innerHTML = ` 
+    <div class="col-3 bg-dark rounded-3 homeAlbum">
+                    <div class="row">
+                      <div class="col-4 ps-0">
+                        <img src="${data.cover}" class="w-100 rounded-3">
+                      </div>
+                      <div class="col-9 d-flex align-items-center">
+                        <h5 class="text-white">${data.title}</h5>
+                      </div>
+                    </div>
+                  </div>
+    `
+}
+
+
+
+function popolaHomeArtists(data) {
+    const homeArtistsContainer = document.getElementById('homeArtistsContainer');
+    homeArtistsContainer.innerHTML = `
+    <div class="card bg-transparent homeArtist py-5">
+                    <img src="" class="card-img-top w-75 align-self-center">
+                    <div class="card-body">
+                      <h4 class="card-title text-white">Nome artista</h4>
+                      <p class="card-text text-white-50 fs-5">Artista</p>
+                    </div>
+                  </div>
+    `
+}
+
+
+
+function popolaHomeTracks(data) {
+    const homeTracksContainer = document.getElementById('homeTracksContainer');
+    homeTracksContainer.innerHTML = `
+    <div class="col-4 container-fluid rounded-2 braniHome mb-4">
+                    <div class="row">
+                      <div class="col-3 p-0 d-flex align-items-center">
+                        <img src="assets/img/image-11.jpg" class="img-fluid me-2 rounded-2">
+                      </div>
+                      <div class="col-6 container">
+                        <div class="row d-flex align-items-center h-100">
+                          <h3 class="col-12 text-white">Titolo titolo</h3>
+                          <p class="col-12 m-0 fs-4 text-white">1.22</p>
+                          <p class="col-12 m-0 fs-5 text-white">55486431</p>
+                        </div>
+                      </div>
+                      <div class="col-3 p-0 d-flex align-items-center">
+                        <button class="btn rounded-circle bg-transparent border-0 p-0 me-3 w-100 h-100 buttonPlayBrani">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                            class="bi bi-play-circle-fill text-success w-100" viewBox="0 0 16 16">
+                            <path
+                              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+    `
+}
+
 
 // let track={
 //     "id": 1109731,
