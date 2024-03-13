@@ -8,12 +8,12 @@ let btnPause = document.querySelector(".pause"); // Take the pause button
 let btnPrev = document.querySelector(".prev"); // Take the switch button of the previous track
 let btnNext = document.querySelector(".next");
 
-const url ="https://corsproxy.io/?https://deezerdevs-deezer.p.rapidapi.com/";
+const url ="https://deezerdevs-deezer.p.rapidapi.com/";
 
 const options = {
     method: "GET",
      headers: {
-       "X-RapidAPI-Key": "dbc55fa0b3msh11db0998867bdf0p127d0ejsn427d844c1974",
+       "X-RapidAPI-Key": "fe6e50a14emsh32a34440c590bc8p11cc7ajsn626ec9a75f8c",
        "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
      },
    };
@@ -251,19 +251,14 @@ async function searchArtist(searchTerm) {
 window.addEventListener("load", init);
 function init(e) {
     e.preventDefault(); 
-    genera(1);
-    setTimeout(()=> {
-      genera(2)  
-    }, 5000) ;
-    // genera(3);
-    // getHomeAlbums();
-    // getHomeArtists();
-    // getHomeTracks();
+    // genera();
+
     }
 
     class Ceraca {
         constructor(_urlstring) {
           this.urlString = _urlstring;
+          this.data={};
         }
         async featchFunction() {
           const options = {
@@ -277,20 +272,35 @@ function init(e) {
           try {
             let endpoint = url + this.urlString;
             const response = await fetch(url + this.urlString, options);
-            const data = await response.json();
+            const date = await response.json();
+            this.data=date;
           } catch (error) {
             console.error("Error during fetching data:", error);
           }
         }
+        
       }   
-   
-      const genera = async (id) => {
-        let random = `album/${Math.floor(Math.random() * 1000000)}`;
+      async function getMainAlbum(endpoint) {
+        let getMainAlbumObj = new Ceraca(endpoint);
+        await getMainAlbumObj.featchFunction();
+        popolaMainAlbum(getMainAlbumObj.data);
+
+      }
+      async function getMainHomeAlbum(endpoint) {
+        let getMainAlbumHome = new Ceraca(endpoint);
+        await getMainAlbumHome.featchFunction();
+        popolaHomeAlbum(getMainAlbumHome.data);
+
+      }
+      let contatoreGenera=0;
+      const genera = async (tipo) => {
+     
+        let random = `${tipo}/${Math.floor(Math.random() * 1000000)}`;
         let endpoint = random;
         const options = {
             method: "GET",
             headers: {
-              "X-RapidAPI-Key": "2e50c00f75mshfd267fefaec0641p1ad213jsn245f0da85d04",
+              "X-RapidAPI-Key": "fe6e50a14emsh32a34440c590bc8p11cc7ajsn626ec9a75f8c",
               "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
             },
           };
@@ -298,22 +308,34 @@ function init(e) {
         const data = await response.json();
         // console.log('Fetch di prova: ', data);
         if (data.error) {
-          console.log('Fetch vuota');
+        //   console.log('Fetch vuota');
           return genera();
         } else {
-          console.log('Fetch riuscita');
-          console.log(data);
-          if (id===1) {
-            popolaMainAlbum(data);
-          }
-          if (id===2) {
-            popolaHomeAlbum(data);
+        //   console.log('Fetch riuscita');
+        //   console.log(data);
+        
+          if (contatoreGenera<1) {
+            getMainAlbum(endpoint);
+            contatoreGenera++;
+             return genera();            
+          }else  if (contatoreGenera<7) {
+            getMainHomeAlbum(endpoint);
+            contatoreGenera++;
+             return genera();            
+          }else  if (contatoreGenera<10) {
+            popolaHomeAlbum2(data);
+            contatoreGenera++;
+             return genera();            
+          }else  if (contatoreGenera<13) {
+            popolaHomeArtists(data);
+            contatoreGenera++;
+             return genera();            
           }
         }
       }
      
 
-function popolaMainAlbum(data) {
+async function popolaMainAlbum(data) {
 const mainTopSection = document.getElementById('mainTopSection');
 mainTopSection.innerHTML = `
 <div class="col-3 p-4" id="contenitoreImmagineTopSection">
@@ -356,26 +378,36 @@ mainTopSection.innerHTML = `
    
 }
 
-
-
-
-
-
-
-function popolaHomeAlbum(data) {
+ function popolaHomeAlbum(data) {
+    console.log('zxczx');
     const homeAlbumContainer = document.getElementById('homeAlbumContainer');
-    homeAlbumContainer.innerHTML = ` 
-    <div class="col-3 bg-dark rounded-3 homeAlbum">
-                    <div class="row">
-                      <div class="col-4 ps-0">
-                        <img src="${data.cover}" class="w-100 rounded-3">
+    homeAlbumContainer.innerHTML += ` 
+    <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum">
+                        <div class="row">
+                          <div class="col-3 ps-0">
+                            <img src="${data.cover}" class="w-100 rounded-3">
+                          </div>
+                          <div class="col-9 d-flex align-items-center">
+                            <h6 class="text-white">${data.title}</h6>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-9 d-flex align-items-center">
-                        <h5 class="text-white">${data.title}</h5>
-                      </div>
-                    </div>
-                  </div>
+    `}
+    function popolaHomeAlbum2(data) {
+    const homeAlbumContainer2 = document.getElementById('homeAlbumContainer2');
+    homeAlbumContainer2.innerHTML += ` 
+    <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum" >
+    <div class="row">
+      <div class="col-3 ps-0">
+        <img src="${data.cover}" class="w-100 rounded-3">
+      </div>
+      <div class="col-9 d-flex align-items-center">
+        <h5 class="text-white">${data.title}</h5>
+      </div>
+    </div>
+  </div>
     `
+   
 }
 
 
@@ -384,12 +416,13 @@ function popolaHomeArtists(data) {
     const homeArtistsContainer = document.getElementById('homeArtistsContainer');
     homeArtistsContainer.innerHTML = `
     <div class="card bg-transparent homeArtist py-5">
-                    <img src="" class="card-img-top w-75 align-self-center">
-                    <div class="card-body">
-                      <h4 class="card-title text-white">Nome artista</h4>
-                      <p class="card-text text-white-50 fs-5">Artista</p>
-                    </div>
-                  </div>
+                        <img src="${data.cover}" class="card-img-top w-75 align-self-center">
+                        <div class="card-body">
+                          <h4 class="card-title text-white">${data.title}</h4>
+                          <p class="card-text text-white-50 fs-5">${data.name}</p>
+
+                        </div>
+                      </div>
     `
 }
 
