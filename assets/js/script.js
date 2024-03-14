@@ -158,7 +158,7 @@ playerCenter=()=>{
 }
 async function playerGet(id) {
   /* funzione call con id passare anche array di canzoni per il successivo*/
- 
+  console.log('spinto');
   try {
     const response = await fetch(url +'track/'+ id, options);
     const result = await response.json();
@@ -251,7 +251,7 @@ async function searchArtist(searchTerm) {
 window.addEventListener("load", init);
 function init(e) {
     e.preventDefault(); 
-    genera('album');
+    genera('track');
 
     }
 
@@ -300,11 +300,11 @@ function init(e) {
     //     await getMainAlbumHome.featchFunction();
     //     popolaHomeAlbum(getMainAlbumHome.data);
     //   }
-    //   async function getHomeTracks(endpoint) {
-    //     let getMainAlbumHome = new Ceraca(endpoint);
-    //     await getMainAlbumHome.featchFunction();
-    //     popolaHomeAlbum(getMainAlbumHome.data);
-    //   }
+      async function getHomeTracks(endpoint) {
+        let getMainAlbumHome = new Ceraca(endpoint);
+        await getMainAlbumHome.featchFunction();
+        popolaHomeTracks(getMainAlbumHome.data);
+      }
 
       let contatoreGenera=0;
       const genera = async (tipo) => {
@@ -330,10 +330,11 @@ function init(e) {
         //    console.log(data);
         
           if (contatoreGenera<1) {
+            console.log(data);
             getMainAlbum(random);
             contatoreGenera++;
              return genera(tipo);            
-          }else  if (contatoreGenera<4) {
+          }/* else  if (contatoreGenera<4) {
             // getHomeAlbum(random);
             popolaHomeAlbum(data)
             contatoreGenera++;
@@ -353,13 +354,13 @@ function init(e) {
             popolaHomeArtists2(data);
             contatoreGenera++;
              return genera(tipo);            
-          }else  if (contatoreGenera<21) {
-            // getHomeTracks('track');
-            popolaHomeTracks(data);
+          }else*/  if (contatoreGenera<2) {
+             getHomeTracks(endpoint);
+            // popolaHomeTracks(data);
             contatoreGenera++;
              return genera(tipo);            
           }
-        }
+        } 
       }
      
 
@@ -381,7 +382,7 @@ mainTopSection.innerHTML = `
     </div>
     <div class="col-12 h-25 align-content-center">
       <button class="btn btn-success rounded-5 fs-3 px-5 py-3 text-black fw-bold"
-        id="btnPlayTopSection" onclick='changeToAlbum("68346981")'>Play</button>
+        id="btnPlayTopSection" onclick='changeToAlbum(${data.id})'>Play</button>
       <button class="btn btn-outline-light rounded-5 fs-3 px-5 py-3 fw-bold mx-3" id="btnSegui" onclick='changeToArtist("416239")'>Segui</button>
       <div class="dropdown d-inline-block">
         <button type="button" class="btn bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
@@ -472,23 +473,24 @@ function popolaHomeArtists2(data) {
 
 
 function popolaHomeTracks(data) {
+  console.log(data);
     const homeTracksContainer = document.getElementById('homeTracksContainer');
     homeTracksContainer.innerHTML += `
     <div class="col-4 container-fluid rounded-2 braniHome mb-4">
                     <div class="row">
                       <div class="col-3 p-0 d-flex align-items-center">
-                        <img src="assets/img/image-11.jpg" class="img-fluid me-2 rounded-2">
+                        <img src="${data.album.cover}" class="img-fluid me-2 rounded-2">
                       </div>
                       <div class="col-6 container">
                         <div class="row d-flex align-items-center h-100">
-                          <h3 class="col-12 text-white">Titolo titolo</h3>
+                          <h3 class="col-12 text-white">${data.title}</h3>
                           <p class="col-12 m-0 fs-4 text-white">1.22</p>
                           <p class="col-12 m-0 fs-5 text-white">55486431</p>
                         </div>
                       </div>
                       <div class="col-3 p-0 d-flex align-items-center">
-                        <button class="btn rounded-circle bg-transparent border-0 p-0 me-3 w-100 h-100 buttonPlayBrani">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                        <button onclick='playerGet(${data.id})' class="btn rounded-circle bg-transparent border-0 p-0 me-3 w-100 h-100 buttonPlayBrani ">
+                          <svg xmlns="${data.album.cover}" width="70" height="70" fill="currentColor"
                             class="bi bi-play-circle-fill text-success w-100" viewBox="0 0 16 16">
                             <path
                               d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
@@ -500,184 +502,143 @@ function popolaHomeTracks(data) {
     `
 }
 
-
-// let track={
-//     "id": 1109731,
-//     "readable": true,
-//     "title": "Lose Yourself",
-//     "title_short": "Lose Yourself",
-//     "title_version": "",
-//     "isrc": "USIR10211559",
-//     "link": "https://www.deezer.com/track/1109731",
-//     "share": "https://www.deezer.com/track/1109731?utm_source=deezer&utm_content=track-1109731&utm_term=0_1710190141&utm_medium=web",
-//     "duration": 326,
-//     "track_position": 6,
-//     "disk_number": 1,
-//     "rank": 982936,
-//     "release_date": "2005-11-21",
-//     "explicit_lyrics": true,
-//     "explicit_content_lyrics": 1,
-//     "explicit_content_cover": 0,
-//     "preview": "https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3",
-//     "bpm": 171.6,
-//     "gain": -8.3,
-    
-//     "contributors": [
-//         {
-//             "id": 13,
-//             "name": "Eminem",
-//             "link": "https://www.deezer.com/artist/13",
-//             "share": "https://www.deezer.com/artist/13?utm_source=deezer&utm_content=artist-13&utm_term=0_1710190141&utm_medium=web",
-//             "picture": "https://api.deezer.com/artist/13/image",
-//             "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/56x56-000000-80-0-0.jpg",
-//             "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/250x250-000000-80-0-0.jpg",
-//             "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/500x500-000000-80-0-0.jpg",
-//             "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/1000x1000-000000-80-0-0.jpg",
-//             "radio": true,
-//             "tracklist": "https://api.deezer.com/artist/13/top?limit=50",
-//             "type": "artist",
-//             "role": "Main"
-//         }
-//     ],
-//     "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
-//     "artist": {
-//         "id": 13,
-//         "name": "Eminem",
-//         "link": "https://www.deezer.com/artist/13",
-//         "share": "https://www.deezer.com/artist/13?utm_source=deezer&utm_content=artist-13&utm_term=0_1710190141&utm_medium=web",
-//         "picture": "https://api.deezer.com/artist/13/image",
-//         "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/56x56-000000-80-0-0.jpg",
-//         "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/250x250-000000-80-0-0.jpg",
-//         "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/500x500-000000-80-0-0.jpg",
-//         "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/1000x1000-000000-80-0-0.jpg",
-//         "radio": true,
-//         "tracklist": "https://api.deezer.com/artist/13/top?limit=50",
-//         "type": "artist"
-//     },
-//     "album": {
-//         "id": 119606,
-//         "title": "Curtain Call: The Hits",
-//         "link": "https://www.deezer.com/album/119606",
-//         "cover": "https://api.deezer.com/album/119606/image",
-//         "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/56x56-000000-80-0-0.jpg",
-//         "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/250x250-000000-80-0-0.jpg",
-//         "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/500x500-000000-80-0-0.jpg",
-//         "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/1000x1000-000000-80-0-0.jpg",
-//         "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
-//         "release_date": "2005-01-01",
-//         "tracklist": "https://api.deezer.com/album/119606/tracks",
-//         "type": "album"
-//     },
-//     "type": "track"
-// }  
-
-// getMusic();
-/* { canzone
-    "id": 1109731,
+/* {
+    "id": 960640, track
     "readable": true,
-    "title": "Lose Yourself",
-    "title_short": "Lose Yourself",
+    "title": "Downtown",
+    "title_short": "Downtown",
     "title_version": "",
-    "isrc": "USIR10211559",
-    "link": "https://www.deezer.com/track/1109731",
-    "share": "https://www.deezer.com/track/1109731?utm_source=deezer&utm_content=track-1109731&utm_term=0_1710189607&utm_medium=web",
-    "duration": 326,
-    "track_position": 6,
+    "isrc": "USRC19205519",
+    "link": "https://www.deezer.com/track/960640",
+    "share": "https://www.deezer.com/track/960640?utm_source=deezer&utm_content=track-960640&utm_term=0_1710404973&utm_medium=web",
+    "duration": 312,
+    "track_position": 10,
     "disk_number": 1,
-    "rank": 982936,
-    "release_date": "2005-11-21",
-    "explicit_lyrics": true,
-    "explicit_content_lyrics": 1,
-    "explicit_content_cover": 0,
-    "preview": "https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3",
-    "bpm": 171.6,
-    "gain": -8.3,
+    "rank": 184505,
+    "release_date": "2001-11-05",
+    "explicit_lyrics": false,
+    "explicit_content_lyrics": 0,
+    "explicit_content_cover": 2,
+    "preview": "https://cdns-preview-8.dzcdn.net/stream/c-8f154449f19920456a0c30891f42840f-7.mp3",
+    "bpm": 166,
+    "gain": -13,
+    "available_countries": [
+      
+    ],
     "contributors": [
         {
-            "id": 13,
-            "name": "Eminem",
-            "link": "https://www.deezer.com/artist/13",
-            "share": "https://www.deezer.com/artist/13?utm_source=deezer&utm_content=artist-13&utm_term=0_1710189607&utm_medium=web",
-            "picture": "https://api.deezer.com/artist/13/image",
-            "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/56x56-000000-80-0-0.jpg",
-            "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/250x250-000000-80-0-0.jpg",
-            "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/500x500-000000-80-0-0.jpg",
-            "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/1000x1000-000000-80-0-0.jpg",
+            "id": 2380,
+            "name": "SWV",
+            "link": "https://www.deezer.com/artist/2380",
+            "share": "https://www.deezer.com/artist/2380?utm_source=deezer&utm_content=artist-2380&utm_term=0_1710404973&utm_medium=web",
+            "picture": "https://api.deezer.com/artist/2380/image",
+            "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/56x56-000000-80-0-0.jpg",
+            "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/250x250-000000-80-0-0.jpg",
+            "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/500x500-000000-80-0-0.jpg",
+            "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/1000x1000-000000-80-0-0.jpg",
             "radio": true,
-            "tracklist": "https://api.deezer.com/artist/13/top?limit=50",
+            "tracklist": "https://api.deezer.com/artist/2380/top?limit=50",
             "type": "artist",
             "role": "Main"
         }
     ],
-    "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
+    "md5_image": "edde54117ec94e9c426fac7c8b7eb8a3",
     "artist": {
-        "id": 13,
-        "name": "Eminem",
-        "link": "https://www.deezer.com/artist/13",
-        "share": "https://www.deezer.com/artist/13?utm_source=deezer&utm_content=artist-13&utm_term=0_1710189607&utm_medium=web",
-        "picture": "https://api.deezer.com/artist/13/image",
-        "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/56x56-000000-80-0-0.jpg",
-        "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/250x250-000000-80-0-0.jpg",
-        "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/500x500-000000-80-0-0.jpg",
-        "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/1000x1000-000000-80-0-0.jpg",
+        "id": 2380,
+        "name": "SWV",
+        "link": "https://www.deezer.com/artist/2380",
+        "share": "https://www.deezer.com/artist/2380?utm_source=deezer&utm_content=artist-2380&utm_term=0_1710404973&utm_medium=web",
+        "picture": "https://api.deezer.com/artist/2380/image",
+        "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/56x56-000000-80-0-0.jpg",
+        "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/250x250-000000-80-0-0.jpg",
+        "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/500x500-000000-80-0-0.jpg",
+        "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/1000x1000-000000-80-0-0.jpg",
         "radio": true,
-        "tracklist": "https://api.deezer.com/artist/13/top?limit=50",
+        "tracklist": "https://api.deezer.com/artist/2380/top?limit=50",
         "type": "artist"
     },
     "album": {
-        "id": 119606,
-        "title": "Curtain Call: The Hits",
-        "link": "https://www.deezer.com/album/119606",
-        "cover": "https://api.deezer.com/album/119606/image",
-        "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/56x56-000000-80-0-0.jpg",
-        "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/250x250-000000-80-0-0.jpg",
-        "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/500x500-000000-80-0-0.jpg",
-        "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/1000x1000-000000-80-0-0.jpg",
-        "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
-        "release_date": "2005-01-01",
-        "tracklist": "https://api.deezer.com/album/119606/tracks",
+        "id": 107698,
+        "title": "Best Of SWV",
+        "link": "https://www.deezer.com/album/107698",
+        "cover": "https://api.deezer.com/album/107698/image",
+        "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/56x56-000000-80-0-0.jpg",
+        "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/250x250-000000-80-0-0.jpg",
+        "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/500x500-000000-80-0-0.jpg",
+        "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/1000x1000-000000-80-0-0.jpg",
+        "md5_image": "edde54117ec94e9c426fac7c8b7eb8a3",
+        "release_date": "2001-11-05",
+        "tracklist": "https://api.deezer.com/album/107698/tracks",
         "type": "album"
     },
     "type": "track"
 } */
-/* {                                      serach 
-    "id": 1109731,
-    "readable": true,
-    "title": "Lose Yourself",
-    "title_short": "Lose Yourself",
-    "title_version": "",
-    "link": "https://www.deezer.com/track/1109731",
-    "duration": 326,
-    "rank": 982936,
-    "explicit_lyrics": true,
-    "explicit_content_lyrics": 1,
-    "explicit_content_cover": 0,
-    "preview": "https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3",
-    "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
-    "artist": {
-        "id": 13,
-        "name": "Eminem",
-        "link": "https://www.deezer.com/artist/13",
-        "picture": "https://api.deezer.com/artist/13/image",
-        "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/56x56-000000-80-0-0.jpg",
-        "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/250x250-000000-80-0-0.jpg",
-        "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/500x500-000000-80-0-0.jpg",
-        "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/19cc38f9d69b352f718782e7a22f9c32/1000x1000-000000-80-0-0.jpg",
-        "tracklist": "https://api.deezer.com/artist/13/top?limit=50",
-        "type": "artist"
-    },
-    "album": {
-        "id": 119606,
-        "title": "Curtain Call: The Hits",
-        "cover": "https://api.deezer.com/album/119606/image",
-        "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/56x56-000000-80-0-0.jpg",
-        "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/250x250-000000-80-0-0.jpg",
-        "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/500x500-000000-80-0-0.jpg",
-        "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/1000x1000-000000-80-0-0.jpg",
-        "md5_image": "e2b36a9fda865cb2e9ed1476b6291a7d",
-        "tracklist": "https://api.deezer.com/album/119606/tracks",
-        "type": "album"
-    },
-    "type": "track"
+/* {album
+  "id": 274799,
+  "readable": false,
+  "title": "Introduction (Live)",
+  "title_short": "Introduction",
+  "title_version": "(Live)",
+  "isrc": "FR6V80307491",
+  "link": "https://www.deezer.com/track/274799",
+  "share": "https://www.deezer.com/track/274799?utm_source=deezer&utm_content=track-274799&utm_term=0_1710404836&utm_medium=web",
+  "duration": 42,
+  "track_position": 1,
+  "disk_number": 1,
+  "rank": 26396,
+  "release_date": "2006-11-13",
+  "explicit_lyrics": false,
+  "explicit_content_lyrics": 2,
+  "explicit_content_cover": 2,
+  "preview": "",
+  "bpm": 129.6,
+  "gain": -14.2,
+  "available_countries": [],
+  "contributors": [
+      {
+          "id": 7042,
+          "name": "Henri Dès",
+          "link": "https://www.deezer.com/artist/7042",
+          "share": "https://www.deezer.com/artist/7042?utm_source=deezer&utm_content=artist-7042&utm_term=0_1710404836&utm_medium=web",
+          "picture": "https://api.deezer.com/artist/7042/image",
+          "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/56x56-000000-80-0-0.jpg",
+          "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/250x250-000000-80-0-0.jpg",
+          "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/500x500-000000-80-0-0.jpg",
+          "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/1000x1000-000000-80-0-0.jpg",
+          "radio": true,
+          "tracklist": "https://api.deezer.com/artist/7042/top?limit=50",
+          "type": "artist",
+          "role": "Main"
+      }
+  ],
+  "md5_image": "c0511866f41bd21851559f00a2e7ad78",
+  "artist": {
+      "id": 7042,
+      "name": "Henri Dès",
+      "link": "https://www.deezer.com/artist/7042",
+      "share": "https://www.deezer.com/artist/7042?utm_source=deezer&utm_content=artist-7042&utm_term=0_1710404836&utm_medium=web",
+      "picture": "https://api.deezer.com/artist/7042/image",
+      "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/56x56-000000-80-0-0.jpg",
+      "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/250x250-000000-80-0-0.jpg",
+      "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/500x500-000000-80-0-0.jpg",
+      "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/1000x1000-000000-80-0-0.jpg",
+      "radio": true,
+      "tracklist": "https://api.deezer.com/artist/7042/top?limit=50",
+      "type": "artist"
+  },
+  "album": {
+      "id": 45878,
+      "title": "Henri Dès Olympia 2003 (Live)",
+      "link": "https://www.deezer.com/album/45878",
+      "cover": "https://api.deezer.com/album/45878/image",
+      "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/56x56-000000-80-0-0.jpg",
+      "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/250x250-000000-80-0-0.jpg",
+      "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/500x500-000000-80-0-0.jpg",
+      "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/1000x1000-000000-80-0-0.jpg",
+      "md5_image": "c0511866f41bd21851559f00a2e7ad78",
+      "release_date": "2006-11-13",
+      "tracklist": "https://api.deezer.com/album/45878/tracks",
+      "type": "album"
+  },
+  "type": "track"
 } */
-
