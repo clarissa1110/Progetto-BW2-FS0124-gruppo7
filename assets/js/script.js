@@ -436,7 +436,7 @@ mainTopSection.innerHTML = `
       </div>
     </div>
   </div>
-//     `
+    `
    
 }
 
@@ -469,8 +469,7 @@ function popolaHomeArtists2(data) {
   </div>
     `
 }
-
-
+puzzi
 
 function popolaHomeTracks(data) {
   console.log(data);
