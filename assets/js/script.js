@@ -9,272 +9,6 @@ let btnPrev = document.querySelector(".prev"); // Take the switch button of the 
 let btnNext = document.querySelector(".next");
 
 const url = "https://deezerdevs-deezer.p.rapidapi.com/";
-
-// const options = {
-//   method: "GET",
-//   headers: {
-//     "X-RapidAPI-Key": "fe6e50a14emsh32a34440c590bc8p11cc7ajsn626ec9a75f8c",
-//     "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-//   },
-// };
-
-// let playlist = [];
-
-// class playerHiden {
-//   visibile(result) {
-//     playerContent.classList.remove("playerDisactive");
-//     playerContent.classList.add("player");
-//     puschTrack(result);
-//   }
-//   btnVisibile() {
-//     btnPlay.classList.remove("playerActive");
-//     btnPause.classList.remove("playerDisactive");
-//     btnPlay.classList.add("playerDisactive");
-//     btnPause.classList.add("playerActive");
-//   }
-
-//   btnInvisibile() {
-//     btnPause.classList.remove("playerActive");
-//     btnPlay.classList.remove("playerDisactive");
-//     btnPause.classList.add("playerDisactive");
-//     btnPlay.classList.add("playerActive");
-//   }
-// }
-// let visibility = new playerHiden();
-// playerDestra = () => {
-//   const range = document.querySelector(".volume input[type=range]");
-
-//   const barHoverBox = document.querySelector(".volume .bar-hoverbox");
-//   const fill = document.querySelector(".volume .bar .bar-fill");
-//   range.addEventListener("change", (e) => {
-//     audio.volume = e.target.value / 100;
-//   });
-//   const setValue = (value) => {
-//     fill.style.width = value + "%";
-//     range.setAttribute("value", value);
-//     range.dispatchEvent(new Event("change"));
-//   };
-//   setValue(range.value);
-//   const calculateFill = (e) => {
-//     let offsetX = e.offsetX;
-//     if (e.type === "touchmove") {
-//       offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
-//     }
-//     const width = e.target.offsetWidth - 30;
-//     setValue(Math.max(Math.min(((offsetX - 15) / width) * 100.0, 100.0), 0));
-//   };
-//   let barStillDown = false;
-//   barHoverBox.addEventListener(
-//     "touchstart",
-//     (e) => {
-//       barStillDown = true;
-//       calculateFill(e);
-//     },
-//     true
-//   );
-//   barHoverBox.addEventListener(
-//     "touchmove",
-//     (e) => {
-//       if (barStillDown) {
-//         calculateFill(e);
-//       }
-//     },
-//     true
-//   );
-//   barHoverBox.addEventListener(
-//     "mousedown",
-//     (e) => {
-//       barStillDown = true;
-
-//       calculateFill(e);
-//     },
-//     true
-//   );
-
-//   barHoverBox.addEventListener("mousemove", (e) => {
-//     if (barStillDown) {
-//       calculateFill(e);
-//     }
-//   });
-//   barHoverBox.addEventListener("wheel", (e) => {
-//     const newValue = +range.value + e.deltaY * 0.5;
-//     setValue(Math.max(Math.min(newValue, 100.0), 0));
-//   });
-//   document.addEventListener(
-//     "mouseup",
-//     (e) => {
-//       barStillDown = false;
-//     },
-//     true
-//   );
-//   document.addEventListener(
-//     "touchend",
-//     (e) => {
-//       barStillDown = false;
-//     },
-//     true
-//   );
-// };
-
-// playerSinistra = (track) => {
-//   console.log(track.contributors[0].name);
-//   playerInfo.innerHTML = `<div class='leftPlayer d-flex'>
-//           <img src="${track.artist.picture_small}" alt="${track.title}">
-//           <div>
-//               <h4>${track.title}</h4>
-//               <h5>${track.contributors[0].name}</h5>
-//           </div>
-//           <button class="heart bg-transparent text-white border-0 ms-4">
-//             <ion-icon name="heart-outline"></ion-icon>
-//           </button>
-//           </div>`;
-// };
-// puschTrack = (canzone) => {
-//   playlist.push(canzone);
-// };
-// let audio = document.getElementById("audio");
-// let interval;
-// startSong = (i) => {
-//   switchPlaylist = (i) => {
-//     audio.src = playlist[i];
-//     audio.currentTime = 0;
-//     audio.play();
-//   };
-//   const progress = document.querySelector(".progress-bar");
-//   let timeBar = document.getElementById("timeBar");
-//   visibility.btnVisibile();
-
-//   switchPlaylist(i);
-//   timeBar.innerText = Math.round(audio.currentTime);
-//   interval = setInterval(() => {
-//     let audioTime = Math.round(audio.currentTime);
-//     let audioLength = Math.round(audio.duration);
-//     progress.style.width = (audioTime * 100) / audioLength + "%";
-//     timeBar.innerText = Math.round(audio.currentTime);
-//     console.log("da zero" + " " + playlist.length + " " + i);
-//     if (audioTime === audioLength && playlist.length - 1 <= i) {
-//       i = 0;
-//       console.log("da zero" + " " + playlist.length + " " + i);
-//       switchPlaylist(i);
-//     } else if (audioTime === audioLength) {
-//       i++;
-//       switchPlaylist(i);
-//     }
-//   }, 500);
-// };
-
-// playerCenter = () => {
-//   console.log(playlist);
-//   let i = 0;
-//   startSong(i);
-
-//   btnPlay.addEventListener("click", function (e) {
-//     visibility.btnVisibile();
-//     audio.play();
-//   });
-//   btnPause.addEventListener("click", function (e) {
-//     visibility.btnInvisibile();
-//     audio.pause();
-//   });
-// };
-// async function playerGet(id) {
-//   /* funzione call con id passare anche array di canzoni per il successivo*/
-//   console.log("spinto");
-//   try {
-//     const response = await fetch(url + "track/" + id, options);
-//     const result = await response.json();
-//     if (playlist.length === 0) {
-//       puschTrack(result.preview);
-//       playerContent.classList.remove("playerDisactive");
-//       playerContent.classList.add("player");
-//       playerDestra();
-//       playerSinistra(result);
-//       playerCenter(result);
-//       puschTrack(
-//         "https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-12.mp3"
-//       );
-//     } else {
-//       puschTrack(result.preview);
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// const artist = [
-//   {
-//     nome: "Eminem",
-//     canzoni: ["Lose Yourself", "Without Me", "Rap God"],
-//   },
-//   {
-//     nome: "Ed Sheeran",
-//     canzoni: ["Shape of You", "Perfect", "Thinking Out Loud"],
-//   },
-//   {
-//     nome: "Adele",
-//     canzoni: ["Hello", "Someone Like You", "Rolling in the Deep"],
-//   },
-// ];
-
-// const searchForm = document.querySelector('form[role="search"]');
-// const searchInput = document.querySelector('input[type="search"]');
-
-// searchForm.addEventListener("click", function (event) {
-//   event.preventDefault();
-
-//   const searchTerm = searchInput.value.trim(); //IL VALORE .TRIM VIENE INSERITO PER L'UTENTE CHE INSERISCE ERRONEAMENTE SPAZZI BIANCHI IN ECCESSO ALL'INIZIO E ALLA FINE DELLA STRINGA; DIVERSAMENTE POSSIAMO UTILIZZARE UNA REGEX CHE DIA LO STESSO RISULTATO, IN QUEL CASO LO SCRIVIAMO COSI': const searchTerm = searchInput.value.replace(/^\s+|\s+$/g, '');
-
-//   if (searchTerm !== "") {
-//     searchTrack(searchTerm);
-//   }
-// });
-
-// async function searchTrack(searchTerm) {
-//   try {
-//     const response = await fetch(url + `search?q=${searchTerm}`, options);
-//     const data = await response.json();
-
-//     if (data.data.length > 0) {
-//       const trackId = data.data[0].id; //La funzione data.data può contenere un array di oggetti, nel nostro caso saranno l'array di canzoni. In questo modo ci permette di accedere ai dati specifici restituiti dalla richiesta API. In questo caso, si suppone che questi dati siano le tracce musicali restituite dalla ricerca effettuata su Deezer. Se data.data.length è <maggiore> di zero, significa che almeno una traccia è stata trovata e restituita dalla ricerca.
-//       playerGet(trackId); // Chiama la funzione per ottenere e riprodurre la traccia cercata!
-//       searchArtist(searchTerm); // Chiama la funzione per ottenere e riprodurre le canzoni dell'artista!
-//       searchInput.value = "";
-//       console.log(data);
-//     } else {
-//       console.log("Nessuna traccia trovata");
-//     }
-//   } catch (error) {
-//     console.error("Errore durante la ricerca della traccia:", error);
-//   }
-// }
-
-// async function searchArtist(searchTerm) {
-//   const songSerch = artist.some((artist) =>
-//     artist.canzoni.includes(searchTerm)
-//   );
-
-//   // Se il termine corrisponde al nome di una canzone, stampa il nome della canzone e restituirà true se almeno uno degli artisti nell'array artist ha una canzone che corrisponde al termine di ricerca (searchTerm). Altrimenti, restituirà false.
-//   if (songSerch) {
-//     console.log(searchTerm);
-//   } else {
-//     // Se non è stata trovata una canzone, cerca un artista, FONDAMENTALE E' STATO COMPARARE <artist.nome.toLowerCase() === searchTerm.toLowerCase()> POICHE' SOLO IN QUESTO MODO LUI ESEGUE LA RICERCA ALL'INTERNO DELL'ARRAY ARTIST e si interroga se la ricerca effettuata è il nome della canzone o il nome dell'artista!!
-//     const artistSerch = artist.find(
-//       (artist) => artist.nome.toLowerCase() === searchTerm.toLowerCase()
-//     );
-
-//     // Se l'artista è stato trovato, stampa le sue canzoni
-//     if (artistSerch) {
-//       console.log(`Canzoni di ${artistSerch.nome}:`);
-//       artistSerch.canzoni.forEach((song) => {
-//         console.log(song);
-//       });
-//     } else {
-//       console.log("Nessuna canzone o artista trovato.");
-//     }
-//   }
-// }
-
-
 let playlist = [];
 class Ceraca {
   constructor(_urlstring) {
@@ -495,172 +229,198 @@ async function playerGet(id) {
 
 
 
+
+  async function getMainAlbum(data) {
+    let getMainAlbumObj = new Ceraca('album/'+data.album.id);
+    await getMainAlbumObj.featchFunction();
+    popolaMainAlbum(getMainAlbumObj.data);
+  }
+  async function getHomeAlbum(data) {
+    let getMainAlbumHome = new Ceraca('album/'+data.album.id);
+    await getMainAlbumHome.featchFunction();
+    popolaHomeAlbum(getMainAlbumHome.data);
+  }
+  async function getHomeAlbum2(data) {
+    let getMainAlbumHome = new Ceraca('album/'+data.album.id);
+    await getMainAlbumHome.featchFunction();
+    popolaHomeAlbum2(getMainAlbumHome.data);
+  }
+  async function getHomeArtists(data) {
+    let getMainAlbumHome = new Ceraca('artist/'+data.artist.id);
+    await getMainAlbumHome.featchFunction();
+    popolaHomeArtists(getMainAlbumHome.data);
+  }
+  async function getHomeArtists2(data) {
+    let getMainAlbumHome = new Ceraca('artist/'+data.artist.id);
+    await getMainAlbumHome.featchFunction();
+    popolaHomeArtists2(getMainAlbumHome.data);
+  }
+  async function getHomeTracks(data) {
+    // let getMainAlbumHome = new Ceraca(data.id);
+    // await getMainAlbumHome.featchFunction();
+    popolaHomeTracks(data);
+  }
+
+  async function loop(data,id) {
+    console.log(data.id);
+    if (id < 1) {
+      getMainAlbum(data);
+    } else if (id < 4) {
+      getHomeAlbum(data); 
+      } else if (id < 7) {
+        getHomeAlbum2(data);
+        // popolaHomeAlbum2(random);
+      } else if (id < 11) {
+        getHomeArtists(data);
+        // popolaHomeArtists(random);
+      } else if (id < 15) {
+        getHomeArtists2(data);
+        // popolaHomeArtists2(random);
+      } else if (id < 21) {
+        getHomeTracks(data);
+      }
+    }
+
+  const genera = async (tipo,id) => {
+ 
+    let random = Math.floor(Math.random() * 1000000);
+    let endpoint = `${tipo}/${random}`;
+    // console.log(endpoint);
+    const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key": "fe6e50a14emsh32a34440c590bc8p11cc7ajsn626ec9a75f8c",
+          "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+        },
+      };
+    const response = await fetch(url + endpoint, options);
+    const data = await response.json();
+
+    // console.log('Fetch di prova: ', data);
+    if (data.error) {
+    //   console.log('Fetch vuota');
+      return genera(tipo);
+    } else {
+      console.log(data);
+        loop(data,id);
+    } 
+  }
+ 
+
+
+
+ 
+function startToHome(){
+  const promise = new Promise((resolve, reject) => {
+    let request = new XMLHttpRequest();
+  request.open("GET", "home.html");
+  
+  request.onload = function () {
+    if (request.status == 200) {
+      resolve(request.response);
+    } else {
+      reject("<h3>FILE NON TROVATO!</h3>");
+    }
+  };
+  request.send();
+});
+promise.then(
+  function (value) {
+    showPage(value);
+  },
+  function (error) {
+    showPage(error);
+  }
+  );
+}
+function loadHome() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.status == 200) {
+      
+      showPage(value);
+      console.log(this.response);
+    }
+  };
+  xhttp.open("GET", "home.html", true);
+  xhttp.send();
+}
+
+function loadAlbum() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("mainSection").innerHTML = this.response;
+    }
+  };
+  xhttp.open("GET", "album.html", true);
+  xhttp.send();
+}
+function loadArtist() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("mainSection").innerHTML = this.response;
+    }
+  };
+  xhttp.open("GET", "artisti.html", true);
+  xhttp.send();
+}
+
 window.addEventListener("load", init);
+const btnHome = document.getElementById("btnHome");
 async function init(e) {
   e.preventDefault();
+  startToHome();
   for (let i = 0; i < 21; i++) {
+    await genera("track", i);
+  }
+}
+btnHome.addEventListener("click", async(e) => {
+  e.preventDefault();
+  startToHome();
+  for (let i = 0; i < 7; i++) {
     await genera("album", i);
   }
-}
+});
 
-// class Ceraca {
-//   constructor(_urlstring) {
-//     console.log(_urlstring);
-//     this.urlString = _urlstring;
-//     console.log(this.urlString);
-//     this.data = {};
-//   }
-//   async featchFunction() {
-//     const options = {
-//       method: "GET",
-//       headers: {
-//         "X-RapidAPI-Key": "fe6e50a14emsh32a34440c590bc8p11cc7ajsn626ec9a75f8c",
-//         "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-//       },
-//     };
 
-//     try {
-//       const response = await fetch(url + this.urlString, options);
-      
-//       if (!response.ok) {
-//         // Gestione degli errori HTTP
-//         console.error("HTTP error:", response.status);
-//         return false;
-//       }
-      
-//       const data = await response.json();
-      
-//       if (data.error) {
-//         console.error("Error in response data:", data.error);
-//         return false;
-//       }
-      
-//       this.data = data;
-//       // console.log(this.data);
-//       return true;
-//     } catch (error) {
-//       console.error("Error during fetching data:", error);
-//       return false;
-//     }
-//   }
-// }
-async function getMainAlbum(endpoint) {
-  let getMainAlbumObj = new Ceraca("album/" + endpoint);
-  let ricerca = await getMainAlbumObj.featchFunction();
-  if (ricerca) {
-    popolaMainAlbum(getMainAlbumObj.data);
-  } else {
-    genera("track");
-  }
-}
-async function getHomeAlbum(endpoint, contatore) {
-  let getMainAlbumHome = new Ceraca("album/" + endpoint);
-  let ricerca = await getMainAlbumHome.featchFunction();
-  if (ricerca) {
-    console.log("popolato");
-    popolaHomeAlbum(getMainAlbumHome.data);
-  } else {
-    genera("track", contatore);
-  }
-}
-async function getHomeAlbum2(endpoint) {
-  let getMainAlbumHome = new Ceraca(endpoint);
-  await getMainAlbumHome.featchFunction();
-  popolaHomeAlbum2(getMainAlbumHome.data);
-}
-async function getHomeArtists(endpoint) {
-  let getMainAlbumHome = new Ceraca(endpoint);
-  await getMainAlbumHome.featchFunction();
-  popolaHomeAlbum(getMainAlbumHome.data);
-}
-async function getHomeTracks(endpoint) {
-  console.log(endpoint);
-  let getMainAlbumHome = new Ceraca(endpoint);
-  await getMainAlbumHome.featchFunction();
-  popolaHomeTracks(getMainAlbumHome.data);
-}
-
-const genera = async (tipo, contatoreGenera = 0) => {
-  let random = Math.floor(Math.random() * 1000000);
-  let endpoint = `${tipo}/${random}`;
-  console.log(endpoint);
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "fe6e50a14emsh32a34440c590bc8p11cc7ajsn626ec9a75f8c",
-      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-    },
-  };
-  const response = await fetch(url + endpoint, options);
-  const data = await response.json();
-  // console.log('Fetch di prova: ', data);
-  if (data.error) {
-    //   console.log('Fetch vuota');
-    return genera(tipo);
-  } else {
-    // console.log('Fetch riuscita');
-    // console.log(data);
-    //loop(contatoreGenera, data);
-    // contatoreGenera++;
-    // return genera(tipo);
-  }
-};
-
-function loop(contatoreGenera, data) {
-  console.log(data);
-  if (contatoreGenera < 1) {
-    getMainAlbum(data.id);
-  } else if (contatoreGenera < 4) {
-    getHomeAlbum(data.id, contatoreGenera); 
-    } else if (contatoreGenera < 7) {
-      getHomeAlbum2(data.id, contatoreGenera);
-      // popolaHomeAlbum2(random);
-    } else if (contatoreGenera < 11) {
-      getHomeArtists("artist");
-      // popolaHomeArtists(random);
-    } else if (contatoreGenera < 15) {
-      getHomeArtists("artist");
-      // popolaHomeArtists2(random);
-    } else if (contatoreGenera < 21) {
-      getHomeTracks(`album/${ data.id}`, contatoreGenera);
-    }
-  }
 async function popolaMainAlbum(data) {
   const mainTopSection = document.getElementById("mainTopSection");
   mainTopSection.innerHTML = `
 <div class="col-3 p-4" id="contenitoreImmagineTopSection">
   <img src="${data.cover_big}" class="rounded" id="imagineTopMain" />
-</div>
+  </div>
 <div class="col-9 container-fluid">
-  <div class="row h-100 d-flex align-items-around">
-    <div class="col-12 h-75 align-content-stretch" id="contenitoreTestoTopSection">
-      <p class="text-white fs-4 my-2" id="tipoPlaylist">${data.type}</p>
+<div class="row h-100 d-flex align-items-around">
+<div class="col-12 h-75 align-content-stretch" id="contenitoreTestoTopSection">
+<p class="text-white fs-4 my-2" id="tipoPlaylist">${data.type}</p>
       <h1 class="m-0 col-12 text-start text-white display-1 fw-bold my-3" id="nomePlaylist">${data.title}
       </h1>
       <h2 class="col-12 text-start text-white m-0 my-2" id="descrizionePlaylist">Data di uscita: 
-        ${data.release_date}
-        </h2>
-    </div>
+      ${data.release_date}
+      </h2>
+      </div>
     <div class="col-12 h-25 align-content-center">
-      <button class="btn btn-success rounded-5 fs-3 px-5 py-3 text-black fw-bold"
-        id="btnPlayTopSection" onclick='loadAlbum(${data.id})'>Play</button>
-      <button class="btn btn-outline-light rounded-5 fs-3 px-5 py-3 fw-bold mx-3" id="btnSegui" onclick='loadArtist()'>Segui</button>
-      <div class="dropdown d-inline-block">
+    <button class="btn btn-success rounded-5 fs-3 px-5 py-3 text-black fw-bold"
+    id="btnPlayTopSection" onclick='loadAlbum(${data.id})'>Play</button>
+    <button class="btn btn-outline-light rounded-5 fs-3 px-5 py-3 fw-bold mx-3" id="btnSegui" onclick='loadArtist()'>Segui</button>
+    <div class="dropdown d-inline-block">
         <button type="button" class="btn bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
             class="bi bi-three-dots text-white" viewBox="0 0 16 16">
             <path
-              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
-          </svg>
-        </button>
-        <ul class="dropdown-menu bg-black">
-          <li><a class="dropdown-item bg-black text-white fs-4" href="#">Aggiungi alla tua libreria</a>
-          </li>
+            d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+            </svg>
+            </button>
+            <ul class="dropdown-menu bg-black">
+            <li><a class="dropdown-item bg-black text-white fs-4" href="#">Aggiungi alla tua libreria</a>
+            </li>
           <li><a class="dropdown-item bg-black text-white fs-4" href="#">Aggiungi in coda</a></li>
           <li><a class="dropdown-item bg-black text-white fs-4" href="#">Segnala</a></li>
           <li><a class="dropdown-item bg-black text-white fs-4" href="#">Scarica</a></li>
         </ul>
-      </div>
+        </div>
     </div>
   </div>
 </div>`;
@@ -672,8 +432,8 @@ function popolaHomeAlbum(data) {
   homeAlbumContainer.innerHTML += ` 
     <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum">
                         <div class="row">
-                          <div class="col-3 ps-0">
-                            <img src="${data.cover}" class="w-100 rounded-3">
+                        <div class="col-3 ps-0">
+                        <img src="${data.cover}" class="w-100 rounded-3">
                           </div>
                           <div class="col-9 d-flex align-items-center">
                             <h6 class="text-white">${data.title}</h6>
@@ -686,17 +446,17 @@ function popolaHomeAlbum2(data) {
   console.log(data);
   const homeAlbumContainer2 = document.getElementById("homeAlbumContainer2");
   homeAlbumContainer2.innerHTML += ` 
-    <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum" >
+  <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum" >
     <div class="row">
       <div class="col-3 ps-0">
         <img src="${data.cover}" class="w-100 rounded-3">
       </div>
       <div class="col-9 d-flex align-items-center">
-        <h5 class="text-white">${data.title}</h5>
+      <h5 class="text-white">${data.title}</h5>
       </div>
-    </div>
+      </div>
   </div>
-    `;
+  `;
 }
 
 function popolaHomeArtists(data) {
@@ -708,206 +468,65 @@ function popolaHomeArtists(data) {
                           <h4 class="card-title text-white">${data.title}</h4>
                           <p class="card-text text-white-50 fs-5">${data.name}</p>
 
-                        </div>
+                          </div>
                       </div>
     `;
 }
 function popolaHomeArtists2(data) {
   const homeArtistsContainer2 = document.getElementById(
     "homeArtistsContainer2"
-  );
+    );
   homeArtistsContainer2.innerHTML += `
     <div class="card bg-transparent homeArtist py-5">
     <img src="${data.cover}" class="card-img-top w-75 align-self-center">
     <div class="card-body">
-      <h4 class="card-title text-white">Card title</h4>
-      <p class="card-text text-white-50 fs-5">Artista</p>
+    <h4 class="card-title text-white">Card title</h4>
+    <p class="card-text text-white-50 fs-5">Artista</p>
 
     </div>
   </div>
     `;
-}
+  }
 function popolaHomeTracks(data) {
   console.log(data);
   const homeTracksContainer = document.getElementById("homeTracksContainer");
   homeTracksContainer.innerHTML += `
-    <div class="col-4 container-fluid rounded-2 braniHome mb-4">
+  <div class="col-4 container-fluid rounded-2 braniHome mb-4">
                     <div class="row">
                       <div class="col-3 p-0 d-flex align-items-center">
-                        <button onclick="puschTrack(${JSON.stringify(data)})" ><img src="${data.cover}" class="img-fluid me-2 rounded-2"></button>
+                        <button onclick="puschTrack(${data.preview})" ><img src="${data.album.cover}" class="img-fluid me-2 rounded-2"></button>
                       </div>
                       <div class="col-6 container">
                         <div class="row d-flex align-items-center h-100">
                           <h3 class="col-12 text-white">${data.title}</h3>
                           <p class="col-12 m-0 fs-4 text-white">1.22</p>
                           <p class="col-12 m-0 fs-5 text-white">55486431</p>
-                        </div>
+                          </div>
                       </div>
                       <div class="col-3 p-0 d-flex align-items-center">
                         <button onclick='playerGet(${data.id})' class="btn rounded-circle bg-transparent border-0 p-0 me-3 w-100 h-100 buttonPlayBrani ">
                           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
                             class="bi bi-play-circle-fill text-success w-100" viewBox="0 0 16 16">
                             <path
-                              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
-                          </svg>
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
+                            </svg>
                         </button>
                       </div>
                     </div>
                   </div>
     `;
-}
-
-/* {
-    "id": 960640, track
-    "readable": true,
-    "title": "Downtown",
-    "title_short": "Downtown",
-    "title_version": "",
-    "isrc": "USRC19205519",
-    "link": "https://www.deezer.com/track/960640",
-    "share": "https://www.deezer.com/track/960640?utm_source=deezer&utm_content=track-960640&utm_term=0_1710404973&utm_medium=web",
-    "duration": 312,
-    "track_position": 10,
-    "disk_number": 1,
-    "rank": 184505,
-    "release_date": "2001-11-05",
-    "explicit_lyrics": false,
-    "explicit_content_lyrics": 0,
-    "explicit_content_cover": 2,
-    "preview": "https://cdns-preview-8.dzcdn.net/stream/c-8f154449f19920456a0c30891f42840f-7.mp3",
-    "bpm": 166,
-    "gain": -13,
-    "available_countries": [
-      
-    ],
-    "contributors": [
-        {
-            "id": 2380,
-            "name": "SWV",
-            "link": "https://www.deezer.com/artist/2380",
-            "share": "https://www.deezer.com/artist/2380?utm_source=deezer&utm_content=artist-2380&utm_term=0_1710404973&utm_medium=web",
-            "picture": "https://api.deezer.com/artist/2380/image",
-            "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/56x56-000000-80-0-0.jpg",
-            "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/250x250-000000-80-0-0.jpg",
-            "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/500x500-000000-80-0-0.jpg",
-            "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/1000x1000-000000-80-0-0.jpg",
-            "radio": true,
-            "tracklist": "https://api.deezer.com/artist/2380/top?limit=50",
-            "type": "artist",
-            "role": "Main"
-        }
-    ],
-    "md5_image": "edde54117ec94e9c426fac7c8b7eb8a3",
-    "artist": {
-        "id": 2380,
-        "name": "SWV",
-        "link": "https://www.deezer.com/artist/2380",
-        "share": "https://www.deezer.com/artist/2380?utm_source=deezer&utm_content=artist-2380&utm_term=0_1710404973&utm_medium=web",
-        "picture": "https://api.deezer.com/artist/2380/image",
-        "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/56x56-000000-80-0-0.jpg",
-        "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/250x250-000000-80-0-0.jpg",
-        "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/500x500-000000-80-0-0.jpg",
-        "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/350963b43e7f27ed0817b6b51b894b4d/1000x1000-000000-80-0-0.jpg",
-        "radio": true,
-        "tracklist": "https://api.deezer.com/artist/2380/top?limit=50",
-        "type": "artist"
-    },
-    "album": {
-        "id": 107698,
-        "title": "Best Of SWV",
-        "link": "https://www.deezer.com/album/107698",
-        "cover": "https://api.deezer.com/album/107698/image",
-        "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/56x56-000000-80-0-0.jpg",
-        "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/250x250-000000-80-0-0.jpg",
-        "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/500x500-000000-80-0-0.jpg",
-        "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/edde54117ec94e9c426fac7c8b7eb8a3/1000x1000-000000-80-0-0.jpg",
-        "md5_image": "edde54117ec94e9c426fac7c8b7eb8a3",
-        "release_date": "2001-11-05",
-        "tracklist": "https://api.deezer.com/album/107698/tracks",
-        "type": "album"
-    },
-    "type": "track"
-} */
-/* {album
-  "id": 274799,
-  "readable": false,
-  "title": "Introduction (Live)",
-  "title_short": "Introduction",
-  "title_version": "(Live)",
-  "isrc": "FR6V80307491",
-  "link": "https://www.deezer.com/track/274799",
-  "share": "https://www.deezer.com/track/274799?utm_source=deezer&utm_content=track-274799&utm_term=0_1710404836&utm_medium=web",
-  "duration": 42,
-  "track_position": 1,
-  "disk_number": 1,
-  "rank": 26396,
-  "release_date": "2006-11-13",
-  "explicit_lyrics": false,
-  "explicit_content_lyrics": 2,
-  "explicit_content_cover": 2,
-  "preview": "",
-  "bpm": 129.6,
-  "gain": -14.2,
-  "available_countries": [],
-  "contributors": [
-      {
-          "id": 7042,
-          "name": "Henri Dès",
-          "link": "https://www.deezer.com/artist/7042",
-          "share": "https://www.deezer.com/artist/7042?utm_source=deezer&utm_content=artist-7042&utm_term=0_1710404836&utm_medium=web",
-          "picture": "https://api.deezer.com/artist/7042/image",
-          "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/56x56-000000-80-0-0.jpg",
-          "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/250x250-000000-80-0-0.jpg",
-          "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/500x500-000000-80-0-0.jpg",
-          "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/1000x1000-000000-80-0-0.jpg",
-          "radio": true,
-          "tracklist": "https://api.deezer.com/artist/7042/top?limit=50",
-          "type": "artist",
-          "role": "Main"
-      }
-  ],
-  "md5_image": "c0511866f41bd21851559f00a2e7ad78",
-  "artist": {
-      "id": 7042,
-      "name": "Henri Dès",
-      "link": "https://www.deezer.com/artist/7042",
-      "share": "https://www.deezer.com/artist/7042?utm_source=deezer&utm_content=artist-7042&utm_term=0_1710404836&utm_medium=web",
-      "picture": "https://api.deezer.com/artist/7042/image",
-      "picture_small": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/56x56-000000-80-0-0.jpg",
-      "picture_medium": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/250x250-000000-80-0-0.jpg",
-      "picture_big": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/500x500-000000-80-0-0.jpg",
-      "picture_xl": "https://e-cdns-images.dzcdn.net/images/artist/ca45d8af657396654f0a6a9a6dfc0365/1000x1000-000000-80-0-0.jpg",
-      "radio": true,
-      "tracklist": "https://api.deezer.com/artist/7042/top?limit=50",
-      "type": "artist"
-  },
-  "album": {
-      "id": 45878,
-      "title": "Henri Dès Olympia 2003 (Live)",
-      "link": "https://www.deezer.com/album/45878",
-      "cover": "https://api.deezer.com/album/45878/image",
-      "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/56x56-000000-80-0-0.jpg",
-      "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/250x250-000000-80-0-0.jpg",
-      "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/500x500-000000-80-0-0.jpg",
-      "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/c0511866f41bd21851559f00a2e7ad78/1000x1000-000000-80-0-0.jpg",
-      "md5_image": "c0511866f41bd21851559f00a2e7ad78",
-      "release_date": "2006-11-13",
-      "tracklist": "https://api.deezer.com/album/45878/tracks",
-      "type": "album"
-  },
-  "type": "track"
-} */
+  }
 
 function showPage(page) {
   const mainSection = document.getElementById("mainSection");
   mainSection.innerHTML = page;
-  const footer = document.getElementById("mainFooter");
+  let footer = document.getElementById("mainFooter");
   footer.innerHTML = ` <div class="row">
   <div class="col-2 container">
-      <div class="row">
+  <div class="row">
           <h4 class="col-12 text-white">Azienda</h4>
           <a href="#" class="col-12 ">
-              <p class="fs-4">Chi siamo</p>
+          <p class="fs-4">Chi siamo</p>
           </a>
           <a href="#" class="col-12 ">
               <p class="fs-4">Opportunità di lavoro</p>
@@ -1008,70 +627,4 @@ function showPage(page) {
 
 
 </div>`;
-}
-
-const promise = new Promise((resolve, reject) => {
-  let request = new XMLHttpRequest();
-  request.open("GET", "home.html");
-
-  request.onload = function () {
-    if (request.status == 200) {
-      resolve(request.response);
-    } else {
-      reject("<h3>FILE NON TROVATO!</h3>");
-    }
-  };
-  request.send();
-});
-promise.then(
-  function (value) {
-    showPage(value);
-  },
-  function (error) {
-    showPage(error);
-  }
-);
-
-const btnHome = document.getElementById("btnHome");
-
-btnHome.addEventListener("click", () => {
-  loadHome();
-  getMainAlbum();
-  getHomeAlbum();
-  getHomeAlbum2();                    //DA MODIFICARE
-  getHomeArtists();
-  getHomeTracks();
-});
-
-function loadHome() {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.status == 200) {
-      showPage(this.response);
-    }
-  };
-  xhttp.open("GET", "home.html", true);
-  xhttp.send();
-}
-
-function loadAlbum() {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("mainSection").innerHTML = this.response;
-    }
-  };
-  xhttp.open("GET", "album.html", true);
-  xhttp.send();
-}
-
-function loadArtist() {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("mainSection").innerHTML = this.response;
-    }
-  };
-  xhttp.open("GET", "artisti.html", true);
-  xhttp.send();
 }
