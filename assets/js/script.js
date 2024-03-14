@@ -469,7 +469,7 @@ function popolaHomeArtists2(data) {
   </div>
     `
 }
-puzzi
+puzzi anche tu
 
 function popolaHomeTracks(data) {
   console.log(data);
