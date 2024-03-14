@@ -203,3 +203,17 @@ ol {
   #albumPageImg {
     width: 10%;
   }
+
+  #mainFooter hr {
+    border: 2px solid gray;
+  }
+
+  #mainFooter a{
+    text-decoration: none;
+    color: gray;
+  }
+
+  #mainFooter a:hover {
+    text-decoration: underline;
+    color: white;
+  }
