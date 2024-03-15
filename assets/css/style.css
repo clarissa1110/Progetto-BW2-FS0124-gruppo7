@@ -179,23 +179,23 @@ html {
 }
 
 
-ol {
+#olArtisti {
     list-style-type: none;
     counter-reset: my-counter;
     padding: 0;
   }
-  ol li {
+  #olArtisti li {
     counter-increment: my-counter;
     margin-bottom: 10px;
   }
-  ol li::before {
+  #olArtisti li::before {
     content: counter(my-counter); 
     display: inline-block;
     width: 20px; 
     text-align: right; 
     margin-right: 10px;
   }
-  ol li div div {
+  #olArtisti li div div {
     display: flex;
     align-items: center;
   }
