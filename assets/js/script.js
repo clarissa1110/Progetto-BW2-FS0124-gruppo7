@@ -21,7 +21,7 @@ class Ceraca {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975",
+        "X-RapidAPI-Key": "7d0682e15emshe8a4d839ee083b8p10036fjsn6d1f1963341e",
         "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
       },
     };
@@ -320,7 +320,7 @@ async function playerGet(id) {
     const options = {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key": "bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975",
+          "X-RapidAPI-Key": "7d0682e15emshe8a4d839ee083b8p10036fjsn6d1f1963341e",
           "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
         },
       };
@@ -345,7 +345,7 @@ async function playerGet(id) {
     const options = {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key": "bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975",
+          "X-RapidAPI-Key": "7d0682e15emshe8a4d839ee083b8p10036fjsn6d1f1963341e",
           "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
         },
       };
