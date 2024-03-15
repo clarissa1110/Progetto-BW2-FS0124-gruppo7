@@ -21,7 +21,7 @@ class Ceraca {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "dbc55fa0b3msh11db0998867bdf0p127d0ejsn427d844c1974",
+        "X-RapidAPI-Key": "bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975",
         "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
       },
     };
@@ -320,7 +320,7 @@ async function playerGet(id) {
     const options = {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key": "fe6e50a14emsh32a34440c590bc8p11cc7ajsn626ec9a75f8c",
+          "X-RapidAPI-Key": "bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975",
           "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
         },
       };
@@ -345,7 +345,7 @@ async function playerGet(id) {
     const options = {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key": "dbc55fa0b3msh11db0998867bdf0p127d0ejsn427d844c1974",
+          "X-RapidAPI-Key": "bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975",
           "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
         },
       };
@@ -593,7 +593,9 @@ function popolaHomeTracks(data) {
                       <div class="col-6 container">
                         <div class="row d-flex align-items-center h-100">
                           <h3 class="col-12 text-white">${data.title}</h3>
-                          <p class="col-12 m-0 fs-4 text-white">1.22</p>
+                          <p class="col-12 m-0 fs-4 text-white">${(
+                            data.duration / 60
+                          ).toFixed(2)}</p>
                           <p class="col-12 m-0 fs-5 text-white">55486431</p>
                           </div>
                       </div>
