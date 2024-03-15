@@ -19,7 +19,7 @@ class Ceraca {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "adbbad1c37msha7f3201ca42e850p12c2aejsn066c0fe20dfa",
+        "X-RapidAPI-Key": "bbfe19d416msh87b8c1b036c0a55p13a0f3jsn8b44a34e9975",
         "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
       },
     };
@@ -166,9 +166,9 @@ class playerHiden{
         let audioLength = Math.round(this.audio.duration);
         this.progress.style.width = (audioTime * 100) / audioLength + '%';
         this.timeBar.innerText=Math.round(this.audio.currentTime);
-        console.log(playlist.length+'   '+this.counterPlaylist);
+        // console.log(playlist.length+'   '+this.counterPlaylist);
         if ((this.audio.currentTime===this.audio.duration) && (this.counterPlaylist<playlist.length-1)) {
-          console.log('entra'+playlist.length);
+          // console.log('entra'+playlist.length);
           this.counterPlaylist++;
           this.switchPlay();
         }else if(this.audio.currentTime===this.audio.duration&&this.counterPlaylist>=playlist.length-1){
@@ -215,7 +215,7 @@ btnPrev.addEventListener("click", function(e) {
 async function playerGet(id) {
   playlist=[];
   
-  console.log('spinto');
+  // console.log('spinto');
   let playerSong = new Ceraca('track/'+id);/* ricerco la traccia */
    await playerSong.featchFunction();
   //  console.log(playerSong.data);
@@ -231,29 +231,36 @@ async function playerGet(id) {
 
 
   async function getMainAlbum(data) {
-    let getMainAlbumObj = new Ceraca('album/'+data.album.id);
-    await getMainAlbumObj.featchFunction();
-    popolaMainAlbum(getMainAlbumObj.data);
+    // let getMainAlbumObj = new Ceraca('album/'+data.album.id);
+    // await getMainAlbumObj.featchFunction();
+    // popolaMainAlbum(getMainAlbumObj.data);
+    popolaMainAlbum(data)
   }
   async function getHomeAlbum(data) {
-    let getMainAlbumHome = new Ceraca('album/'+data.album.id);
-    await getMainAlbumHome.featchFunction();
-    popolaHomeAlbum(getMainAlbumHome.data);
+    console.log(data);
+    // let getMainAlbumHome = new Ceraca('album/'+data.album.id);
+    // await getMainAlbumHome.featchFunction();
+    // popolaHomeAlbum(getMainAlbumHome.data);
+    popolaHomeAlbum(data);
+
   }
   async function getHomeAlbum2(data) {
-    let getMainAlbumHome = new Ceraca('album/'+data.album.id);
-    await getMainAlbumHome.featchFunction();
-    popolaHomeAlbum2(getMainAlbumHome.data);
+    // let getMainAlbumHome = new Ceraca('album/'+data.album.id);
+    // await getMainAlbumHome.featchFunction();
+    // popolaHomeAlbum2(getMainAlbumHome.data);
+ popolaHomeAlbum2(data);
   }
   async function getHomeArtists(data) {
-    let getMainAlbumHome = new Ceraca('artist/'+data.artist.id);
-    await getMainAlbumHome.featchFunction();
-    popolaHomeArtists(getMainAlbumHome.data);
+    // let getMainAlbumHome = new Ceraca('artist/'+data.artist.id);
+    // await getMainAlbumHome.featchFunction();
+    // popolaHomeArtists(getMainAlbumHome.data);
+  popolaHomeArtists(data);
   }
   async function getHomeArtists2(data) {
-    let getMainAlbumHome = new Ceraca('artist/'+data.artist.id);
-    await getMainAlbumHome.featchFunction();
-    popolaHomeArtists2(getMainAlbumHome.data);
+    // let getMainAlbumHome = new Ceraca('artist/'+data.artist.id);
+    // await getMainAlbumHome.featchFunction();
+    // popolaHomeArtists2(getMainAlbumHome.data);
+    popolaHomeArtists2(data);
   }
   async function getHomeTracks(data) {
     // let getMainAlbumHome = new Ceraca(data.id);
@@ -262,21 +269,21 @@ async function playerGet(id) {
   }
 
   async function loop(data,id) {
-    console.log(data.id);
-    if (id < 1) {
-      getMainAlbum(data);
-    } else if (id < 4) {
-      getHomeAlbum(data); 
-      } else if (id < 7) {
-        getHomeAlbum2(data);
+    // console.log(data);
+ if (id < 1) {                    
+      getMainAlbum(data);//1
+    }  else if (id < 4) {
+      getHomeAlbum(data);//4
+      } else if (id < 7) {        
+        getHomeAlbum2(data);//7
         // popolaHomeAlbum2(random);
       } else if (id < 11) {
-        getHomeArtists(data);
+        getHomeArtists(data);//11
         // popolaHomeArtists(random);
-      } else if (id < 15) {
+      } else if (id < 15) {//15
         getHomeArtists2(data);
         // popolaHomeArtists2(random);
-      } else if (id < 21) {
+      } else if (id < 22) {//21
         getHomeTracks(data);
       }
     }
@@ -298,10 +305,10 @@ async function playerGet(id) {
 
     // console.log('Fetch di prova: ', data);
     if (data.error) {
-    //   console.log('Fetch vuota');
+      console.log('Fetch vuota');
       return genera(tipo);
     } else {
-      console.log(data);
+ 
         loop(data,id);
     } 
   }
@@ -372,24 +379,25 @@ const btnHome = document.getElementById("btnHome");
 async function init(e) {
   e.preventDefault();
   startToHome();
-  for (let i = 0; i < 21; i++) {
-    await genera("track", i);
+  for (let i = 0; i < 3; i++) {
+    await genera("album", i);
   }
 }
 btnHome.addEventListener("click", async(e) => {
   e.preventDefault();
   startToHome();
-  for (let i = 0; i < 7; i++) {
-    await genera("album", i);
+  for (let i = 0; i < 1; i++) {
+    await genera("ablum", i);
   }
 });
 
 
 async function popolaMainAlbum(data) {
+  // console.log(data);
   const mainTopSection = document.getElementById("mainTopSection");
   mainTopSection.innerHTML = `
 <div class="col-3 p-4" id="contenitoreImmagineTopSection">
-  <img src="${data.cover_big}" class="rounded" id="imagineTopMain" />
+  <img src="${data.cover}" class="rounded" id="imagineTopMain" />
   </div>
 <div class="col-9 container-fluid">
 <div class="row h-100 d-flex align-items-around">
@@ -404,7 +412,7 @@ async function popolaMainAlbum(data) {
     <div class="col-12 h-25 align-content-center">
     <button class="btn btn-success rounded-5 fs-3 px-5 py-3 text-black fw-bold"
     id="btnPlayTopSection" onclick='loadAlbum(${data.id})'>Play</button>
-    <button class="btn btn-outline-light rounded-5 fs-3 px-5 py-3 fw-bold mx-3" id="btnSegui" onclick='loadArtist()'>Segui</button>
+    <button class="btn btn-outline-light rounded-5 fs-3 px-5 py-3 fw-bold mx-3" id="btnSegui" onclick='loadArtist(${data.artist.id})'>Segui</button>
     <div class="dropdown d-inline-block">
         <button type="button" class="btn bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
@@ -427,10 +435,10 @@ async function popolaMainAlbum(data) {
 }
 
 function popolaHomeAlbum(data) {
-  console.log(data.title);
+   console.log(data);
   const homeAlbumContainer = document.getElementById("homeAlbumContainer");
   homeAlbumContainer.innerHTML += ` 
-    <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum">
+    <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum" onclick='loadAlbum(${data.id})>
                         <div class="row">
                         <div class="col-3 ps-0">
                         <img src="${data.cover}" class="w-100 rounded-3">
@@ -443,7 +451,7 @@ function popolaHomeAlbum(data) {
     `;
 }
 function popolaHomeAlbum2(data) {
-  console.log(data);
+  // console.log(data);
   const homeAlbumContainer2 = document.getElementById("homeAlbumContainer2");
   homeAlbumContainer2.innerHTML += ` 
   <div class="col-3 container-fluid rounded-2 mb-4 mx-3 bg-dark homeAlbum" >
@@ -488,7 +496,7 @@ function popolaHomeArtists2(data) {
     `;
   }
 function popolaHomeTracks(data) {
-  console.log(data);
+  // console.log(data);
   const homeTracksContainer = document.getElementById("homeTracksContainer");
   homeTracksContainer.innerHTML += `
   <div class="col-4 container-fluid rounded-2 braniHome mb-4">
