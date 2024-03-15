@@ -221,3 +221,12 @@ html {
   .braniHome {
     height: 50%;
   }
+  #appendiLista a{
+    text-decoration: none;
+
+  }
+
+  #appendiLista a:hover{
+    text-decoration: underline;
+
+  }

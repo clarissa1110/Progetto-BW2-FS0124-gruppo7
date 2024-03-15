@@ -159,7 +159,7 @@ class playerHiden{
     playerSinistra(playlist[this.counterPlaylist]);
     this.audio.pause();
     audio.src = playlist[this.counterPlaylist].preview;
-    audio.currentTime =22;
+    audio.currentTime =0;
     this.btnPlayVisibile();
     this.audio.play();
     clearInterval(this.clearinterval);
@@ -203,7 +203,7 @@ class playerHiden{
     playerSinistra(data);
     this.audio.pause();
     audio.src = data.preview;
-    audio.currentTime =22;
+    audio.currentTime =0;
     this.btnPlayVisibile();
     this.audio.play();
     this.intervallo();
@@ -254,12 +254,6 @@ async function playerGet(id) {
     play.playlistAutoPlay(playerSong.data);
 }
 
-
-
-
-
-
-
   async function getMainAlbum(data) {
     // let getMainAlbumObj = new Ceraca('album/'+data.album.id);
     // await getMainAlbumObj.featchFunction();
@@ -298,7 +292,7 @@ async function playerGet(id) {
     popolaHomeTracks(data);
   }
 
-/*   async function loop(data,id) {
+   async function loop(data,id) {
     // console.log(data);
  if (id < 1) {                    
       getMainAlbum(data);//1
@@ -316,9 +310,9 @@ async function playerGet(id) {
       } else if (id < 22) {//21
         getHomeTracks(data);
       }
-    } */
+    } 
 
-/*   const genera = async (tipo,id) => {
+  const genera2 = async (tipo,id) => {
  
     let random = Math.floor(Math.random() * 1000000);
     let endpoint = `${tipo}/${random}`;
@@ -341,7 +335,7 @@ async function playerGet(id) {
  
         loop(data,id);
     } 
-  } */
+  }
   let contatoreGenera=0;
   const genera = async (tipo) => {
  
@@ -374,7 +368,7 @@ async function playerGet(id) {
         //  getMainAlbum(data.album.id); 
         contatoreGenera++;
          return genera(tipo);            
-      }  /*  else   if (contatoreGenera<4) {
+      }  else   if (contatoreGenera<4) {
         // getHomeAlbum(random);
         popolaHomeAlbum(data);
         contatoreGenera++;
@@ -394,7 +388,7 @@ async function playerGet(id) {
         popolaHomeArtists2(data);
         contatoreGenera++;
          return genera(tipo);            
-      }else*/  if (contatoreGenera<3) {
+      }else  if (contatoreGenera<21) {
         //getHomeTracks(data.tracks['data'][0].id);
          popolaHomeTracks(data.tracks['data'][0]);
         // console.log(data.tracks['data'][0].id);
@@ -467,7 +461,7 @@ const btnHome = document.getElementById("btnHome");
 async function init(e) {
   e.preventDefault();
   startToHome();
- /*  for (let i = 0; i < 4; i++) {
+ /*  for (let i = 0; i < 21; i++) {
     await genera("album", i);
   } */
 genera('album');
@@ -479,8 +473,9 @@ genera('album');
 btnHome.addEventListener("click", async(e) => {
   e.preventDefault();
   startToHome();
-  for (let i = 0; i < 1; i++) {
-    await genera("ablum", i);
+  // genera('album');
+  for (let i = 0; i < 21; i++) {
+    await genera("album", i);
   }
 });
 
@@ -563,9 +558,9 @@ function popolaHomeAlbum2(data) {
 function popolaHomeArtists(data) {
   const homeArtistsContainer = document.getElementById("homeArtistsContainer");
   homeArtistsContainer.innerHTML += `
-    <div class="card bg-transparent homeArtist py-5" >
+    <div class="card bg-transparent homeArtist py-5" onclick='loadArtist(${data.artist.id})'>
                         <img src="${data.artist.picture}" class="card-img-top w-75 align-self-center">
-                        <div class="card-body" onclick='loadArtist(${data.artist.id})'>
+                        <div class="card-body" >
                           <h4 class="card-title text-white">${data.artist.name}</h4>
                           <p class="card-text text-white-50 fs-5">Artista</p>
 
@@ -680,7 +675,12 @@ function popolaHomeTracks(data) {
   const playAlbumButton = document.getElementById("playAlbumButton");
   
   playAlbumButton.addEventListener('click', () => {
-    puschTrack(`${data}`);
+    playerGet(data.tracks.data[0].id);
+    data.tracks.data.forEach(element => {
+      playlist.push(element);
+    });
+    playlist.slice(1,1);
+   
   });
   
   
@@ -706,7 +706,7 @@ function popolaHomeTracks(data) {
      <div class="row">
        <div class="col-6">
          <div class="row">
-          <a href="#" class="col-12 text-white" onclick="playerGet(${data.tracks.data[i].id})">
+          <a href="#" class="col-12 text-white" onclick="playerQualcosa(${data.tracks.data[i].id})">
             <h5>${data.tracks.data[i].title}</h5>
           </a>
           <a href="#" class="col-12 text-white">
@@ -837,4 +837,50 @@ function showPage(page) {
 
 
 </div>`;
+}
+const searchForm = document.querySelector('form[role="search"]');
+const searchInput = document.querySelector('input[type="search"]');
+
+searchForm.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  const searchTerm = searchInput.value.trim(); //IL VALORE .TRIM VIENE INSERITO PER L'UTENTE CHE INSERISCE ERRONEAMENTE SPAZZI BIANCHI IN ECCESSO ALL'INIZIO E ALLA FINE DELLA STRINGA; DIVERSAMENTE POSSIAMO UTILIZZARE UNA REGEX CHE DIA LO STESSO RISULTATO, IN QUEL CASO LO SCRIVIAMO COSI': const searchTerm = searchInput.value.replace(/^\s+|\s+$/g, ''); 
+
+  if (searchTerm !== "") {
+    searchTrack(searchTerm);
+  }
+});
+
+async function searchTrack(searchTerm) {
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "4f9a41ff10mshfd328554e7f8c94p1e18a9jsn5a1f52cec344",
+      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+    },
+  };
+  try {
+    const response = await fetch(url + `search?q=${searchTerm}`, options);
+    const data = await response.json();
+
+    if (data.data.length > 0) {
+      const id = data.data[0].id; //La funzione data.data può contenere un array di oggetti, nel nostro caso saranno l'array di canzoni. In questo modo ci permette di accedere ai dati specifici restituiti dalla richiesta API. In questo caso, si suppone che questi dati siano le tracce musicali restituite dalla ricerca effettuata su Deezer. Se data.data.length è <maggiore> di zero, significa che almeno una traccia è stata trovata e restituita dalla ricerca. 
+      playerGet(id); // Chiama la funzione per ottenere e riprodurre la traccia cercata!
+      searchArtist(data);// Chiama la funzione per ottenere e riprodurre le canzoni dell'artista!
+      searchInput.value = "";
+      console.log(data);
+    } else {
+      console.log("Nessuna traccia trovata");
+    }
+  } catch (error) {
+    console.error("Errore durante la ricerca della traccia:", error);
+  }
+}
+
+//loadAlbum (id) 
+
+async function searchArtist(data) {
+  if (Array.isArray(data)) {
+    const songSearch = data.some(artist => artist.track.includes(searchTerm));
+  }
 }
