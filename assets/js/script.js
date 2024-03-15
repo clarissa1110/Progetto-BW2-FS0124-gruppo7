@@ -345,7 +345,7 @@ async function playerGet(id) {
         //  getMainAlbum(data.album.id); 
         contatoreGenera++;
          return genera(tipo);            
-      }  else   if (contatoreGenera<4) {
+      } /*  else   if (contatoreGenera<4) {
         // getHomeAlbum(random);
         popolaHomeAlbum(data);
         contatoreGenera++;
@@ -371,7 +371,7 @@ async function playerGet(id) {
         // console.log(data.tracks['data'][0].id);
         contatoreGenera++;
          return genera(tipo);            
-      } 
+      }  */
     } 
   }
 
@@ -384,17 +384,16 @@ async function playerGet(id) {
     };
     xhttp.open("GET", "album.html", true);
     xhttp.send();
-    popolaPaginaAlbum(id);
+    let mainAlbum = new Ceraca('album/'+ id);
+    
+    await mainAlbum.featchFunction();
+    popolaAlbum(mainAlbum.data);
   
   
   }
   
   async function popolaPaginaAlbum(id){
-    let mainAlbum = new Ceraca('album/'+ id);
-    console.log(mainAlbum);
-    await mainAlbum.featchFunction();
-    console.log(mainAlbum.featchFunction());
-    popolaAlbum(mainAlbum);
+  
   }
 
 
@@ -423,29 +422,8 @@ promise.then(
   }
   );
 }
-function loadHome() {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.status == 200) {
-      
-      showPage(value);
-      console.log(this.response);
-    }
-  };
-  xhttp.open("GET", "home.html", true);
-  xhttp.send();
-}
 
-function loadAlbum() {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("mainSection").innerHTML = this.response;
-    }
-  };
-  xhttp.open("GET", "album.html", true);
-  xhttp.send();
-}
+
 function loadArtist() {
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -613,7 +591,7 @@ function popolaHomeTracks(data) {
   async function popolaAlbum(data) {
     console.log(data);
     const topMainBarAlbum = document.getElementById("topMainBarAlbum");
-    topMainBarAlbum.innerHTML =` <div class="col-3">
+    topMainBarAlbum.innerHTML +=` <div class="col-3">
     <img class="w-100"
       src="${data.cover}"
       alt="" />
@@ -627,7 +605,7 @@ function popolaHomeTracks(data) {
     </div>
     <div class="d-flex align-items-end">
       <p class="text-light m-0 ">
-        ${data.artist.name} · ${data.release_date} · ${data.nb_tracks} songs, <span class="coloreTesto">${math.floor(data.duration/60)}</span> minuti
+        ${data.artist.name} · ${data.release_date} · ${data.nb_tracks} songs, <span class="coloreTesto">${Math.floor(data.duration/60)}</span> minuti
       </p>
     </div>
   </div>
